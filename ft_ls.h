@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2017/10/20 14:51:47 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/10/27 21:31:51 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@
 #include <langinfo.h>
 #include "libft/libft.h"
 
-int lsl(int ac, char **av);
+int lsl(int ac ,char **av);
 #endif
