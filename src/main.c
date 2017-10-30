@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 13:46:05 by gmelek            #+#    #+#             */
-/*   Updated: 2017/10/27 21:34:14 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/10/30 16:18:42 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -14,7 +14,7 @@
 int main(int argc, char *argv[])
 {
 	if (!ft_strcmp(argv[1],"-l"))
-		lsl(argc,&argv[1]);
+		lsl(argc,&*argv);
 	else if (!ft_strcmp(argv[1],"-R"))
 		printf("-R\n");
 	else if (!ft_strcmp(argv[1],"-a"))

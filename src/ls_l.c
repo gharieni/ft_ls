@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/10/28 18:58:52 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/10/30 16:19:02 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -24,7 +24,7 @@ int			lsl(int ac ,char **av)
 	char *mtime;
 	char *dat;
 
-	pdir = opendir(av[1]);
+	pdir = opendir(av[2]);
 	while ((dir = readdir(pdir)) != NULL)
 	{
 		if (stat(dir->d_name,&st) == -1)
