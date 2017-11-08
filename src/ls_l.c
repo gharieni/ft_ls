@@ -6,10 +6,24 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/10/30 16:19:02 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/11/05 02:59:30 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
+
+char*	file_str(char *s1, const char *s2)
+{
+
+	int i;
+
+	i = 0;
+	while (s1[i++]);
+	if (!ft_strncmp(&s1[i - 2],".",1) && !ft_strncmp(&s1[i - 3],"/",1))
+		s1[i - 2] = '\0';
+	else if (ft_strncmp(&s1[i - 2],"/",1))
+	s1 = ft_strjoin(s1,"/");
+	return(ft_strjoin(s1,s2));
+}
 
 int			lsl(int ac ,char **av)
 {
@@ -18,16 +32,19 @@ int			lsl(int ac ,char **av)
 	DIR		*pdir;
 	struct	passwd  *pwd;
 	struct	group   *grp;
-	time_t  *time_tmp;
-	time_t ttime;
+	time_t	*time_tmp;
+	time_t	ttime;
+	char	*mtime;
+	char	*dat;
+	char	*str;
 
-	char *mtime;
-	char *dat;
-
-	pdir = opendir(av[2]);
+	str = ft_strnew(50);
+	(pdir = opendir(av[2]));
 	while ((dir = readdir(pdir)) != NULL)
 	{
-		if (stat(dir->d_name,&st) == -1)
+		str = file_str(av[2],dir->d_name);
+		printf("%s \n",str);
+		if (stat(str,&st) == -1)
 		{
 		perror("STAT");
 		}
@@ -69,5 +86,6 @@ int			lsl(int ac ,char **av)
 		printf("time regler      =  %s\n\n\n ",dat);
 		free(time_tmp);
 	}
+	while (1);
 	return (0);
 }
