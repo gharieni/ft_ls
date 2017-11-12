@@ -6,10 +6,36 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/11/05 02:59:30 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/11/12 20:26:21 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
+#include <errno.h>
+
+char*	ft_basename(char** str)
+{
+	char* buff;
+	char* old;
+	char* s;
+
+	buff = *str;
+	old = NULL;
+	while((buff  = ft_strchr(buff,'/')))
+		old = ++buff;
+	if (old)
+	{
+		s = ft_strdup(old);
+		ft_strclr(--old);
+	}
+		else
+		{
+			s = ft_strdup(*str);
+			*str = ".";
+			ft_strclr(*str + 1);
+		}
+		return(s);
+}
+
 
 char*	file_str(char *s1, const char *s2)
 {
@@ -21,7 +47,7 @@ char*	file_str(char *s1, const char *s2)
 	if (!ft_strncmp(&s1[i - 2],".",1) && !ft_strncmp(&s1[i - 3],"/",1))
 		s1[i - 2] = '\0';
 	else if (ft_strncmp(&s1[i - 2],"/",1))
-	s1 = ft_strjoin(s1,"/");
+		s1 = ft_strjoin(s1,"/");
 	return(ft_strjoin(s1,s2));
 }
 
@@ -36,17 +62,25 @@ int			lsl(int ac ,char **av)
 	time_t	ttime;
 	char	*mtime;
 	char	*dat;
-	char	*str;
+	char *buff;
+	char *str;
+	char *s;
+	int i = 2;
 
-	str = ft_strnew(50);
-	(pdir = opendir(av[2]));
-	while ((dir = readdir(pdir)) != NULL)
+	s = NULL;
+	buff = ft_strnew(sizeof(av[2]));
+	ft_strcpy(buff,av[2]);
+	while (!(pdir = opendir(buff)) && i--)
+		s = ft_basename(&buff);
+while ((dir = readdir(pdir)) != NULL)
 	{
-		str = file_str(av[2],dir->d_name);
+		if(!s || (!ft_strcmp( s, dir->d_name)))
+		{
+		str = file_str(buff,dir->d_name);
 		printf("%s \n",str);
 		if (stat(str,&st) == -1)
 		{
-		perror("STAT");
+			perror("STAT");
 		}
 
 		mtime = NULL;
@@ -85,7 +119,7 @@ int			lsl(int ac ,char **av)
 
 		printf("time regler      =  %s\n\n\n ",dat);
 		free(time_tmp);
+		}
 	}
-	while (1);
 	return (0);
 }
