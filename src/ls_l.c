@@ -6,11 +6,12 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/11/12 20:26:21 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/11/13 19:42:28 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 #include <errno.h>
+#include <string.h>
 
 char*	ft_basename(char** str)
 {
@@ -19,21 +20,27 @@ char*	ft_basename(char** str)
 	char* s;
 
 	buff = *str;
+	s = NULL;
 	old = NULL;
-	while((buff  = ft_strchr(buff,'/')))
+	while(strchr(buff,'/') && (buff = strchr(buff,'/')) )
 		old = ++buff;
 	if (old)
 	{
-		s = ft_strdup(old);
-		ft_strclr(--old);
+		free(s);
+		printf("test bring !!!!!!!!!!!!!!!!!!!! %s==%s \n" ,old,buff);
+		s = strdup(buff);
+		printf("$$$$$$$$$$$$$$$$$$$$$ --old  = %s   et s =  %s  \n",buff,s);
+		ft_strclr(buff);
+		printf("$$$$$$$$$$$$$$$$$$$$$ --old  = %s   et s =  %s  \n",buff,s);
 	}
-		else
-		{
-			s = ft_strdup(*str);
-			*str = ".";
-			ft_strclr(*str + 1);
-		}
-		return(s);
+	else
+	{
+		s = ft_strdup(*str);
+		*str = ".";
+		ft_strclr(*str + 1);
+	}
+	printf("test bring !!!!!!!!!!!!!!!!!!!!  %s \n",s);
+	return(s);
 }
 
 
@@ -70,14 +77,20 @@ int			lsl(int ac ,char **av)
 	s = NULL;
 	buff = ft_strnew(sizeof(av[2]));
 	ft_strcpy(buff,av[2]);
+
+	printf("........................ %s \n ",buff);
 	while (!(pdir = opendir(buff)) && i--)
+	{
+		printf("HLLO !! %s   \n", buff);
 		s = ft_basename(&buff);
+		printf("HLLOOOOOOOO !!  %s \n",s);
+	}
 while ((dir = readdir(pdir)) != NULL)
 	{
 		if(!s || (!ft_strcmp( s, dir->d_name)))
 		{
 		str = file_str(buff,dir->d_name);
-		printf("%s \n",str);
+	// printf("%s \n",str);
 		if (stat(str,&st) == -1)
 		{
 			perror("STAT");
@@ -111,7 +124,7 @@ while ((dir = readdir(pdir)) != NULL)
 		ttime = time(NULL);
 		*time_tmp = st.st_mtime;
 		mtime = ctime(time_tmp);
-		free(dat);
+		//free(dat);
 		if ((ttime - st.st_mtime) < 15770000)
 			dat = ft_strsub(mtime,4,12);
 		else
