@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/11/13 19:42:28 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/11/15 15:39:05 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -26,12 +26,9 @@ char*	ft_basename(char** str)
 		old = ++buff;
 	if (old)
 	{
-		free(s);
-		printf("test bring !!!!!!!!!!!!!!!!!!!! %s==%s \n" ,old,buff);
-		s = strdup(buff);
-		printf("$$$$$$$$$$$$$$$$$$$$$ --old  = %s   et s =  %s  \n",buff,s);
-		ft_strclr(buff);
-		printf("$$$$$$$$$$$$$$$$$$$$$ --old  = %s   et s =  %s  \n",buff,s);
+		s = ft_strdup(old);
+		*old = '\0';
+		ft_strclr(old);
 	}
 	else
 	{
@@ -39,7 +36,6 @@ char*	ft_basename(char** str)
 		*str = ".";
 		ft_strclr(*str + 1);
 	}
-	printf("test bring !!!!!!!!!!!!!!!!!!!!  %s \n",s);
 	return(s);
 }
 
@@ -78,14 +74,9 @@ int			lsl(int ac ,char **av)
 	buff = ft_strnew(sizeof(av[2]));
 	ft_strcpy(buff,av[2]);
 
-	printf("........................ %s \n ",buff);
 	while (!(pdir = opendir(buff)) && i--)
-	{
-		printf("HLLO !! %s   \n", buff);
 		s = ft_basename(&buff);
-		printf("HLLOOOOOOOO !!  %s \n",s);
-	}
-while ((dir = readdir(pdir)) != NULL)
+	while ((dir = readdir(pdir)) != NULL)
 	{
 		if(!s || (!ft_strcmp( s, dir->d_name)))
 		{
