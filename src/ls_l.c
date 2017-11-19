@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/11/15 15:39:05 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/11/15 15:48:25 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -81,7 +81,6 @@ int			lsl(int ac ,char **av)
 		if(!s || (!ft_strcmp( s, dir->d_name)))
 		{
 		str = file_str(buff,dir->d_name);
-	// printf("%s \n",str);
 		if (stat(str,&st) == -1)
 		{
 			perror("STAT");
@@ -115,13 +114,13 @@ int			lsl(int ac ,char **av)
 		ttime = time(NULL);
 		*time_tmp = st.st_mtime;
 		mtime = ctime(time_tmp);
-		//free(dat);
+		free(dat);
 		if ((ttime - st.st_mtime) < 15770000)
 			dat = ft_strsub(mtime,4,12);
 		else
 			dat = ft_strcat(ft_strsub(mtime,4,7), ft_strsub(mtime,19,5));
 
-		printf("time regler      =  %s\n\n\n ",dat);
+		printf("time regler      =  %s",dat);
 		free(time_tmp);
 		}
 	}
