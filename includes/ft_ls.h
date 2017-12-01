@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2017/10/27 21:31:51 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/01 22:00:06 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,46 @@
 #include <uuid/uuid.h>
 #include <unistd.h>
 #include <pwd.h>
+#include <errno.h>
 #include <grp.h>
 #include <time.h>
 #include <langinfo.h>
 #include "libft/libft.h"
+
+
+
+typedef struct l_list
+{
+	char			*nom;
+	struct			stat *content;
+	struct l_list	*next;
+}					d_list;
+
+
+void print(d_list *dir);
+d_list	*lst_add(const char *str ,d_list **lst,struct stat *st);
+/*   typedef struct s_elem
+   {
+
+   s_elem *next;
+   }				s_elem;
+   */
+
+typedef struct	s_elem
+{
+	char			*name;
+	char			*path;
+	time_t			date;
+	mode_t			st_mode;
+	nlink_t			st_nlink;
+	uid_t			t_uid;
+	gid_t			st_gid;
+	off_t			st_size;
+	quad_t			st_blocks;
+	dev_t			st_rdev;
+	struct s_elem	*next;
+}						t_elem;
+
 
 int lsl(int ac ,char **av);
 #endif

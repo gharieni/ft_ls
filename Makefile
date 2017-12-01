@@ -6,9 +6,9 @@
 #    By: gmelek <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 16:54:30 by gmelek            #+#    #+#              #
-#    Updated: 2017/11/06 19:45:03 by gmelek           ###   ########.fr        #
+#    Updated: 2017/11/30 17:09:14 by gmelek           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ft_ls: src/main.c src/ls_l.c includes/libft/*.c
-	gcc -g -o ls src/main.c src/ls_l.c includes/libft/*.c -I 'includes/'
+	gcc -g -o ls src/*.c includes/libft/*.c -I 'includes/'

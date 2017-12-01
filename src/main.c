@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 13:46:05 by gmelek            #+#    #+#             */
-/*   Updated: 2017/11/09 19:12:09 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/11/28 13:25:44 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -31,5 +31,5 @@ int main(int argc, char *argv[])
 		printf("-1\n");
 	else 
 		printf("error ... ! \n");
-		return (0);
+	return (0);
 }
