@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/01 23:18:52 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/04 15:30:49 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -91,9 +91,11 @@ int			lsl(int ac ,char **av)
 
 
 			lst_add(dir->d_name,&l_dir,&st);
-			if (j--)
+	//		l_dir = l_dir->next;
+//			if (j--)
 				p_dir = l_dir;
-			print(p_dir);
+				//printf("---  %s \n", dir->d_name);
+			print(l_dir);
 			//if(!p_dir)
 			//	p_dir = p_dir->next;
 			/*if (p_dir != NULL)
