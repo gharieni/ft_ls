@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/04 15:29:49 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/04 15:34:30 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -29,9 +29,9 @@ void	print(d_list *d_dir)
 	mtime = malloc(sizeof(char *));
 	time_tmp = malloc(sizeof(time_t));
 
-	//if (d_dir->next)
-	//	d_dir = d_dir->next;
-	printf("test %s \n ",p_dir->nom);
+	while (d_dir->next)
+		d_dir = d_dir->next;
+	printf("%s \n ",d_dir->nom);
 	if ((pwd = getpwuid(p_dir->content->st_uid)) != NULL)
 		printf("proprietaire     =  %s \n", pwd->pw_name);
 	if ((grp = getgrgid(p_dir->content->st_gid)) != NULL)
