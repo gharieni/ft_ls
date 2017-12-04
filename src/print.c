@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/04 15:34:30 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/04 16:18:18 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -31,14 +31,8 @@ void	print(d_list *d_dir)
 
 	while (d_dir->next)
 		d_dir = d_dir->next;
-	printf("%s \n ",d_dir->nom);
-	if ((pwd = getpwuid(p_dir->content->st_uid)) != NULL)
-		printf("proprietaire     =  %s \n", pwd->pw_name);
-	if ((grp = getgrgid(p_dir->content->st_gid)) != NULL)
-		printf("groupe           =  %s \n", grp->gr_name);
 
-
-	printf("Modes            =  ");
+	// DROIT >>
 	printf( (S_ISDIR(p_dir->content->st_mode)) ? "d" : "-");
 	printf( (p_dir->content->st_mode & S_IRUSR) ? "r" : "-");
 	printf( (p_dir->content->st_mode & S_IWUSR) ? "w" : "-");
@@ -49,9 +43,17 @@ void	print(d_list *d_dir)
 	printf( (p_dir->content->st_mode & S_IROTH) ? "r" : "-");
 	printf( (p_dir->content->st_mode & S_IWOTH) ? "w" : "-");
 	printf( (p_dir->content->st_mode & S_IXOTH) ? "x" : "-");
-	printf("\nNombre de liens  =  %d\n",p_dir->content->st_nlink);
-	printf("Taille           =  %lld \n",p_dir->content->st_size);
-
+	// NOMBRE DE LIEN >>
+	printf(" %d ",p_dir->content->st_nlink);
+	// USER  >>
+	if ((pwd = getpwuid(p_dir->content->st_uid)) != NULL)
+		printf(" %s ", pwd->pw_name);
+	// GROUPE >>
+	if ((grp = getgrgid(p_dir->content->st_gid)) != NULL)
+		printf(" %s ", grp->gr_name);
+   // SIZE >>
+	printf("  %lld ",p_dir->content->st_size);
+	//TIME && DATE
 	ttime = time(NULL);
 	*time_tmp = p_dir->content->st_mtime;
 	mtime = ctime(time_tmp);
@@ -59,6 +61,7 @@ void	print(d_list *d_dir)
 		dat = ft_strsub(mtime,4,12);
 	else
 		dat = ft_strcat(ft_strsub(mtime,4,7), ft_strsub(mtime,19,5));
-
-	printf("time regler      =  %s",dat);
+	printf(" %s",dat);
+	// NAME >>
+	printf(" %s ",d_dir->nom);
 }

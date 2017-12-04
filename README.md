@@ -1,184 +1,22 @@
-. 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  drwxr-xr-x
-Nombre de liens  =  8
-Taille           =  23 
-time regler      =  Dec  4 16:01
-
-.. 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  drwxr-xr-x
-Nombre de liens  =  9
-Taille           =  17 
-time regler      =  Nov  2 05:15
-
-ft_list_dir.c 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  1270 
-time regler      =  Nov  2 05:15
-
-hel 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rwxr-xr-x
-Nombre de liens  =  1
-Taille           =  8664 
-time regler      =  Nov  2 05:15
-
-ls 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rwxr-xr-x
-Nombre de liens  =  1
-Taille           =  41664 
-time regler      =  Dec  4 15:59
-
-includes 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  drwxr-xr-x
-Nombre de liens  =  3
-Taille           =  10 
-time regler      =  Dec  4 15:28
-
-src 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  drwxr-xr-x
-Nombre de liens  =  2
-Taille           =  6 
-time regler      =  Dec  4 16:01
-
-dir 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  drwxr-xr-x
-Nombre de liens  =  3
-Taille           =  6 
-time regler      =  Nov 22 12:54
-
-test2 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  0 
-time regler      =  Nov  2 05:15
-
-test 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  23 
-time regler      =  Nov  2 05:15
-
-Makefile 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  996 
-time regler      =  Nov 30 17:09
-
-.DS_Store 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  6148 
-time regler      =  Nov  2 05:15
-
-ls.dSYM 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  drwxr-xr-x
-Nombre de liens  =  3
-Taille           =  3 
-time regler      =  Nov  6 19:45
-
-ft_ls.fr.pdf 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  1345109 
-time regler      =  Nov  2 05:15
-
-libft 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  drwxr-xr-x
-Nombre de liens  =  2
-Taille           =  66 
-time regler      =  Nov 13 15:42
-
-.git 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  drwxr-xr-x
-Nombre de liens  =  8
-Taille           =  16 
-time regler      =  Dec  4 15:59
-
-libft.h 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  1183 
-time regler      =  Nov  2 05:15
-
-text.txb 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  12 
-time regler      =  Nov  2 05:15
-
-main2.c 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  1333 
-time regler      =  Nov  2 05:15
-
-a.out 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rwxr-xr-x
-Nombre de liens  =  1
-Taille           =  19400 
-time regler      =  Nov 28 10:26
-
-README 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  3969 
-time regler      =  Dec  4 15:55
-
-tes 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  0 
-time regler      =  Nov 13 19:12
-
-README.md 
- proprietaire     =  gmelek 
-groupe           =  2016_paris 
-Modes            =  -rw-r--r--
-Nombre de liens  =  1
-Taille           =  0 
-time regler      =  Dec  4 16:01
-
+drwxr-xr-x 8  gmelek  2016_paris   22  Dec  4 16:19 . 
+drwxr-xr-x 9  gmelek  2016_paris   17  Nov  2 05:15 .. 
+-rw-r--r-- 1  gmelek  2016_paris   1270  Nov  2 05:15 ft_list_dir.c 
+-rwxr-xr-x 1  gmelek  2016_paris   8664  Nov  2 05:15 hel 
+-rwxr-xr-x 1  gmelek  2016_paris   41664  Dec  4 16:18 ls 
+drwxr-xr-x 3  gmelek  2016_paris   10  Dec  4 15:28 includes 
+drwxr-xr-x 2  gmelek  2016_paris   6  Dec  4 16:18 src 
+drwxr-xr-x 3  gmelek  2016_paris   6  Nov 22 12:54 dir 
+-rw-r--r-- 1  gmelek  2016_paris   0  Nov  2 05:15 test2 
+-rw-r--r-- 1  gmelek  2016_paris   23  Nov  2 05:15 test 
+-rw-r--r-- 1  gmelek  2016_paris   996  Nov 30 17:09 Makefile 
+-rw-r--r-- 1  gmelek  2016_paris   6148  Nov  2 05:15 .DS_Store 
+drwxr-xr-x 3  gmelek  2016_paris   3  Nov  6 19:45 ls.dSYM 
+-rw-r--r-- 1  gmelek  2016_paris   1345109  Nov  2 05:15 ft_ls.fr.pdf 
+drwxr-xr-x 2  gmelek  2016_paris   66  Nov 13 15:42 libft 
+drwxr-xr-x 8  gmelek  2016_paris   16  Dec  4 16:19 .git 
+-rw-r--r-- 1  gmelek  2016_paris   1183  Nov  2 05:15 libft.h 
+-rw-r--r-- 1  gmelek  2016_paris   12  Nov  2 05:15 text.txb 
+-rw-r--r-- 1  gmelek  2016_paris   1333  Nov  2 05:15 main2.c 
+-rwxr-xr-x 1  gmelek  2016_paris   19400  Nov 28 10:26 a.out 
+-rw-r--r-- 1  gmelek  2016_paris   0  Nov 13 19:12 tes 
+-rw-r--r-- 1  gmelek  2016_paris   0  Dec  4 16:19 README.md 

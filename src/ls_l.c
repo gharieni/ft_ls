@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/04 16:01:11 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/04 16:12:15 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -79,7 +79,7 @@ int			lsl(int ac ,char **av)
 			lst_add(dir->d_name,&l_dir,&st);
 			print(l_dir);
 		}
-		printf("\n\n");
+		printf("\n");
 	}
 	return (0);
 }
