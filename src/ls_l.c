@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/04 16:12:15 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/07 15:51:49 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -57,6 +57,7 @@ char*	file_str(char *s1, const char *s2)
 int			lsl(int ac ,char **av)
 
 {
+	int m;
 	struct	stat	st;
 	struct	dirent	*dir;
 	DIR				*pdir;
@@ -65,7 +66,9 @@ int			lsl(int ac ,char **av)
 	char			*s;
 	int				i = 2;
 	d_list			*l_dir;
+	d_list			*tmp;
 
+	l_dir = tmp;
 	buff = ft_strnew(sizeof(av[2]));
 	ft_strcpy(buff,av[2]);
 	while (!(pdir = opendir(buff)) && i--)
@@ -76,9 +79,15 @@ int			lsl(int ac ,char **av)
 		{
 			str = file_str(buff,dir->d_name);
 			stat(str,&st);
-			lst_add(dir->d_name,&l_dir,&st);
-			print(l_dir);
+			tmp = lst_add(dir->d_name,&tmp,&st,&m);
 		}
+	}
+l_dir = tmp;
+	while(l_dir)
+	{
+//		printf("----");
+		print(l_dir);
+		l_dir = l_dir->next;
 		printf("\n");
 	}
 	return (0);
