@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/07 13:01:47 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/09 07:45:01 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct l_list
 }					d_list;
 
 int max(d_list *l);
-void print(d_list *dir);
+void print(d_list *dir, int m);
 d_list	*lst_add(const char *str ,d_list **lst,struct stat *st,int *m);
 /*   typedef struct s_elem
    {

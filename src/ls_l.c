@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/07 15:51:49 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/09 07:45:05 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -86,7 +86,7 @@ l_dir = tmp;
 	while(l_dir)
 	{
 //		printf("----");
-		print(l_dir);
+		print(l_dir,m);
 		l_dir = l_dir->next;
 		printf("\n");
 	}
