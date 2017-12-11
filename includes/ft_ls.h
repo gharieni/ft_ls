@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/09 07:45:01 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/11 21:15:36 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,23 @@ typedef struct l_list
 	struct l_list	*next;
 }					d_list;
 
-int max(d_list *l);
+
+typedef struct tnode
+{
+	d_list		*val;
+	struct tnode		*left;
+	struct tnode		*right;
+}					node;
+
+
+
+int max(d_list *l, int *blk);
 void print(d_list *dir, int m);
-d_list	*lst_add(const char *str ,d_list **lst,struct stat *st,int *m);
-/*   typedef struct s_elem
-   {
 
-   s_elem *next;
-   }				s_elem;
-   */
-
+void printReverseTree(node *tree, int m);
+void printTree(node *tree, int m);
+d_list	*lst_add(const char *str ,d_list **lst,struct stat *st,int *m,int *blk);
+node	*addnode(node **tree,char *str ,d_list *l,struct stat *st,int *m,int *blk);
 typedef struct	s_elem
 {
 	char			*name;

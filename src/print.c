@@ -6,17 +6,19 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/10 15:32:33 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/11 13:56:04 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-int max(d_list *d_dir)
+int max(d_list *d_dir, int *blk)
 {
 	d_list *l;
 	int m;
 
 	l = d_dir;
+	if(blk)
+		*blk = *blk + l->content->st_blocks;
 	m = 1;
 	while(l != NULL)
 	{
@@ -68,8 +70,8 @@ void	print(d_list *d_dir, int m)
 		ft_putstr(grp->gr_name);
 	ft_putstr("  ");
 	// SIZE >>
-	 while (m-- - ft_strlen(ft_itoa(d_dir->content->st_size)))
-			 ft_putstr(" ");
+	while (m-- - ft_strlen(ft_itoa(d_dir->content->st_size)))
+		ft_putstr(" ");
 	ft_putnbr(d_dir->content->st_size);
 	ft_putstr(" ");
 	//TIME && DATE

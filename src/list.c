@@ -2,7 +2,7 @@
 #include <errno.h>
 #include <string.h>
 
-d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,int *m)
+d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,int *m,int *blk)
 {
 	d_list *new;
 	d_list *tmp;
@@ -16,8 +16,8 @@ d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,int *m)
 		new->content = (struct stat*)malloc(sizeof(struct stat));
 		*new->content = *st;
 		new->next = NULL;
-		if (max(new) > *m)
-			*m = max(new);
+		if (max(new,blk) > *m)
+			*m = max(new,0);
 	}
 	if(!*lst)
 		*lst = new;

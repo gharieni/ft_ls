@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/09 07:45:05 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/11 20:19:26 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -67,28 +67,35 @@ int			lsl(int ac ,char **av)
 	int				i = 2;
 	d_list			*l_dir;
 	d_list			*tmp;
+	node *tree;
 
+	tree = NULL;
 	l_dir = tmp;
 	buff = ft_strnew(sizeof(av[2]));
 	ft_strcpy(buff,av[2]);
 	while (!(pdir = opendir(buff)) && i--)
 		s = ft_basename(&buff);
+	i = 0;
 	while ((dir = readdir(pdir)) != NULL)
 	{
 		if(!s || (!ft_strcmp( s, dir->d_name)))
 		{
 			str = file_str(buff,dir->d_name);
 			stat(str,&st);
-			tmp = lst_add(dir->d_name,&tmp,&st,&m);
+			//tmp = lst_add(dir->d_name,&tmp,&st,&m,&i);
+			tree = addnode(&tree,dir->d_name,tmp,&st,&m,&i);
 		}
 	}
 l_dir = tmp;
-	while(l_dir)
-	{
-//		printf("----");
-		print(l_dir,m);
-		l_dir = l_dir->next;
+		ft_putstr("total ");
+		ft_putnbr(i);
+		ft_putstr("\n");
+//	while(l_dir)
+//	{
+		//print(l_dir,m);
+		printTree(tree,m);
+//		l_dir = l_dir->next;
 		printf("\n");
-	}
+//	}
 	return (0);
 }
