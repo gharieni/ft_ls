@@ -6,17 +6,29 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 13:46:05 by gmelek            #+#    #+#             */
-/*   Updated: 2017/11/28 13:25:44 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/19 19:39:00 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
 int main(int argc, char *argv[])
 {
+int i;
+
+t_flags *flag;
+
+
+flag = malloc(sizeof(t_flags));
+i = ft_arg_parse_flags(flag,argv);
 	if (argc == 2)
-		argv[2] = ".";
-	if (!ft_strcmp(argv[1],"-l"))
-		lsl(argc,argv);
+	{
+		argc++;
+		argv[i] = ".";
+	}
+		while(i  < argc)
+	{
+		if (flag->flag_l)
+		lsl(argc,argv[i],*flag);
 	else if (!ft_strcmp(argv[1],"-R"))
 		printf("-R\n");
 	else if (!ft_strcmp(argv[1],"-a"))
@@ -31,5 +43,7 @@ int main(int argc, char *argv[])
 		printf("-1\n");
 	else 
 		printf("error ... ! \n");
+	i++;
+	}
 	return (0);
 }

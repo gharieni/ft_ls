@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/11 13:56:04 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/19 19:38:29 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -30,7 +30,7 @@ int max(d_list *d_dir, int *blk)
 }
 
 
-void	print(d_list *d_dir, int m)
+void	print(d_list *d_dir, int m,t_flags flags)
 {
 
 

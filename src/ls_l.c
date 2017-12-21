@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/11 20:19:26 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/21 12:39:32 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -54,7 +54,7 @@ char*	file_str(char *s1, const char *s2)
 	return(ft_strjoin(s1,s2));
 }
 
-int			lsl(int ac ,char **av)
+int			lsl(int ac ,char *av,t_flags flag)
 
 {
 	int m;
@@ -68,14 +68,17 @@ int			lsl(int ac ,char **av)
 	d_list			*l_dir;
 	d_list			*tmp;
 	node *tree;
+	//t_flags *flags;
 
+	//flags = (t_flags*)malloc(sizeof(t_flags));
 	tree = NULL;
 	l_dir = tmp;
 	buff = ft_strnew(sizeof(av[2]));
-	ft_strcpy(buff,av[2]);
+	ft_strcpy(buff,av);
 	while (!(pdir = opendir(buff)) && i--)
 		s = ft_basename(&buff);
 	i = 0;
+	//ft_arg_parse_flags(flags,av);
 	while ((dir = readdir(pdir)) != NULL)
 	{
 		if(!s || (!ft_strcmp( s, dir->d_name)))
@@ -93,7 +96,7 @@ l_dir = tmp;
 //	while(l_dir)
 //	{
 		//print(l_dir,m);
-		printTree(tree,m);
+		printTree(tree,m,&flag);
 //		l_dir = l_dir->next;
 		printf("\n");
 //	}

@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/11 21:16:18 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/21 13:14:43 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ node *addnode(node **tree ,char *str, d_list *l,struct stat *st,int *m,int *blk)
 	elem->val = lst_add(str,&l,st,m,blk);
 	elem->left = NULL;
 	elem->right = NULL;
+
 
 	if(tmpTree)
 		do
@@ -46,25 +47,28 @@ node *addnode(node **tree ,char *str, d_list *l,struct stat *st,int *m,int *blk)
 }
 
 
-void printTree(node *tree, int m)
+void printTree(node *tree, int m,t_flags *f)
 {
+
 	if(!tree) return;
 
-	if(tree->left)  printTree(tree->left,m);
+	if(tree->left)  printTree(tree->left,m,f);
 
-	print(tree->val,m);
+	print(tree->val,m,*f);
 	ft_putstr("\n");
 
-	if(tree->right) printTree(tree->right,m);
+	if(tree->right) printTree(tree->right,m,f);
 }
 
 void printReverseTree(node *tree,int m)
 {
+	t_flags *f;
+	
 	if(!tree) return;
 
 	if(tree->right) printReverseTree(tree->right,m);
 
-	print(tree->val,m);
+	print(tree->val,m,*f);
 	ft_putstr("\n");
 
 

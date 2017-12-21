@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/11 21:15:36 by gmelek           ###   ########.fr       */
+/*   Updated: 2017/12/21 12:38:40 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 
 
 
+#define error 0
+#define succes 1
+
 typedef struct l_list
 {
 	char			*nom;
@@ -36,6 +39,15 @@ typedef struct l_list
 	struct l_list	*next;
 }					d_list;
 
+typedef struct s_flags
+{
+	unsigned int        flag_l;
+	unsigned int        flag_R;
+	unsigned int        flag_a;
+	unsigned int        flag_r;
+	unsigned int        flag_t;
+	unsigned int        flag_error;
+}                t_flags;
 
 typedef struct tnode
 {
@@ -45,12 +57,12 @@ typedef struct tnode
 }					node;
 
 
-
+int ft_arg_parse_flags(t_flags *flags,char **av);
 int max(d_list *l, int *blk);
-void print(d_list *dir, int m);
+void print(d_list *dir, int m,t_flags f);
 
 void printReverseTree(node *tree, int m);
-void printTree(node *tree, int m);
+void printTree(node *tree, int m,t_flags *f);
 d_list	*lst_add(const char *str ,d_list **lst,struct stat *st,int *m,int *blk);
 node	*addnode(node **tree,char *str ,d_list *l,struct stat *st,int *m,int *blk);
 typedef struct	s_elem
@@ -69,5 +81,5 @@ typedef struct	s_elem
 }						t_elem;
 
 
-int lsl(int ac ,char **av);
+int lsl(int ac ,char *av,t_flags f);
 #endif
