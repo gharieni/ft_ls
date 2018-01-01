@@ -6,11 +6,26 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/21 13:14:43 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/01 18:26:42 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+int cmpar(void *f1 ,void *f2,int fact)
+{
+	if (fact == 1)
+	{	if((int)f1 > (int)f2)
+			return (1);
+	}
+	else
+		if(ft_strcmp((char*)f1,(char*)f2) > 0)
+			return 1;
+	//else if(fact == 3)
+	//else
+	return (0);
+}
+
 
 node *addnode(node **tree ,char *str, d_list *l,struct stat *st,int *m,int *blk)
 {
@@ -23,13 +38,20 @@ node *addnode(node **tree ,char *str, d_list *l,struct stat *st,int *m,int *blk)
 	elem->val = lst_add(str,&l,st,m,blk);
 	elem->left = NULL;
 	elem->right = NULL;
-
+	/*
+	 *  size  1
+	 *  tri 2
+	 *  tri reverse 3
+	 *  time 4
+	 *  normal 42
+*/
 
 	if(tmpTree)
 		do
 		{
 			tmpNode = tmpTree;
-			if(l->content->st_size > tmpTree->val->content->st_size)
+			if (cmpar((void*)l->nom ,(void*)tmpTree->val->nom,42))
+				//	if(l->content->st_size > tmpTree->val->content->st_size)
 			{
 				tmpTree = tmpTree->right;
 				if(!tmpTree) 
@@ -54,8 +76,10 @@ void printTree(node *tree, int m,t_flags *f)
 
 	if(tree->left)  printTree(tree->left,m,f);
 
-	print(tree->val,m,*f);
-	ft_putstr("\n");
+	if((f->flag_a && (tree->val->nom[0] == '.'))
+			|| (tree->val->nom[0] != '.'))
+		print(tree->val,m,*f);
+	//ft_putstr("\n");
 
 	if(tree->right) printTree(tree->right,m,f);
 }
@@ -63,7 +87,7 @@ void printTree(node *tree, int m,t_flags *f)
 void printReverseTree(node *tree,int m)
 {
 	t_flags *f;
-	
+
 	if(!tree) return;
 
 	if(tree->right) printReverseTree(tree->right,m);
@@ -86,7 +110,7 @@ void clearTree(node **tree)
 
 	if(tmpTree->right) clearTree(&tmpTree->right);
 
-	free(tmpTree);      
+	free(tmpTree);
 
 	*tree = NULL;
 }
