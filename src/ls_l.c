@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/21 12:39:32 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/04 18:18:22 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -85,11 +85,18 @@ int			lsl(int ac ,char *av,t_flags flag)
 		{
 			str = file_str(buff,dir->d_name);
 			stat(str,&st);
-			//tmp = lst_add(dir->d_name,&tmp,&st,&m,&i);
-			tree = addnode(&tree,dir->d_name,tmp,&st,&m,&i);
+	
+			node *elem = malloc(sizeof(node));
+		printf("hooooooooooooooooooooooola");
+			elem->val = lst_add(str,&tmp,&st,&m,&i);
+			
+			elem->left = NULL;
+			elem->right = NULL;
+	//tmp = lst_add(dir->d_name,&tmp,&st,&m,&i);
+			tree = addnode(&tree,dir->d_name,tmp,elem);//,&st,&m,&i);
 		}
 	}
-l_dir = tmp;
+		l_dir = tmp;
 		ft_putstr("total ");
 		ft_putnbr(i);
 		ft_putstr("\n");

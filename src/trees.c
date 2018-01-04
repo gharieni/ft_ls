@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/01 18:26:42 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/04 17:26:16 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,12 @@ int cmpar(void *f1 ,void *f2,int fact)
 }
 
 
-node *addnode(node **tree ,char *str, d_list *l,struct stat *st,int *m,int *blk)
+node *addnode(node **tree ,char *str, d_list *l, node *elem)//,struct stat *st,int *m,int *blk)
 {
 
 	node *tmpNode;
 	node *tmpTree;
 
-	tmpTree = *tree;
-	node *elem = malloc(sizeof(node));
-	elem->val = lst_add(str,&l,st,m,blk);
-	elem->left = NULL;
-	elem->right = NULL;
 	/*
 	 *  size  1
 	 *  tri 2

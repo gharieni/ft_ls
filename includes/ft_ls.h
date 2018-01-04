@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/21 12:38:40 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/04 17:28:12 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@
 
 #define error 0
 #define succes 1
+
+typedef struct ft_var
+{
+	
+}			ft_var;
 
 typedef struct l_list
 {
@@ -64,7 +69,7 @@ void print(d_list *dir, int m,t_flags f);
 void printReverseTree(node *tree, int m);
 void printTree(node *tree, int m,t_flags *f);
 d_list	*lst_add(const char *str ,d_list **lst,struct stat *st,int *m,int *blk);
-node	*addnode(node **tree,char *str ,d_list *l,struct stat *st,int *m,int *blk);
+node	*addnode(node **tree,char *str ,d_list *l,node *elem);//,struct stat *st,int *m,int *blk);
 typedef struct	s_elem
 {
 	char			*name;
