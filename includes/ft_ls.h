@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/21 12:38:40 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/09 18:02:48 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 #define error 0
 #define succes 1
-
 typedef struct l_list
 {
 	char			*nom;
@@ -49,13 +48,20 @@ typedef struct s_flags
 	unsigned int        flag_error;
 }                t_flags;
 
+typedef struct ft_var
+{
+	struct stat *st;
+	int			*m;
+	int			*blck;
+	t_flags		*f;
+}				ft_var;
+
 typedef struct tnode
 {
 	d_list		*val;
 	struct tnode		*left;
 	struct tnode		*right;
 }					node;
-
 
 int ft_arg_parse_flags(t_flags *flags,char **av);
 int max(d_list *l, int *blk);

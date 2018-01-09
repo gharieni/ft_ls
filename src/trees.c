@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/01 18:26:42 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/09 18:00:13 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int cmpar(void *f1 ,void *f2,int fact)
 	else
 		if(ft_strcmp((char*)f1,(char*)f2) > 0)
 			return 1;
-	//else if(fact == 3)
-	//else
 	return (0);
 }
 

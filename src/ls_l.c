@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/21 12:39:32 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/09 22:44:55 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -58,7 +58,7 @@ int			lsl(int ac ,char *av,t_flags flag)
 
 {
 	int m;
-	struct	stat	st;
+//	struct	stat	st;
 	struct	dirent	*dir;
 	DIR				*pdir;
 	char			*buff;
@@ -68,6 +68,7 @@ int			lsl(int ac ,char *av,t_flags flag)
 	d_list			*l_dir;
 	d_list			*tmp;
 	node *tree;
+	struct	ft_var	*var;
 	//t_flags *flags;
 
 	//flags = (t_flags*)malloc(sizeof(t_flags));
@@ -84,9 +85,9 @@ int			lsl(int ac ,char *av,t_flags flag)
 		if(!s || (!ft_strcmp( s, dir->d_name)))
 		{
 			str = file_str(buff,dir->d_name);
-			stat(str,&st);
+			stat(str,var->st);
 			//tmp = lst_add(dir->d_name,&tmp,&st,&m,&i);
-			tree = addnode(&tree,dir->d_name,tmp,&st,&m,&i);
+			tree = addnode(&tree,dir->d_name,tmp,&var->st,&m,&i);
 		}
 	}
 l_dir = tmp;
