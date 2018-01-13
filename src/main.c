@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 13:46:05 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/12 18:37:24 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/13 07:09:46 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -27,9 +27,9 @@ i = ft_arg_parse_flags(flag,argv);
 	}
 		while(i  < argc)
 	{
-		if (flag->flag_l)
+//		if (flag->flag_l)
 		lsl(argc,argv[i],*flag);
-	else if (!ft_strcmp(argv[1],"-R"))
+/*	else if (!ft_strcmp(argv[1],"-R"))
 		printf("-R\n");
 	else if (!ft_strcmp(argv[1],"-a"))
 		printf("-a\n");
@@ -42,7 +42,7 @@ i = ft_arg_parse_flags(flag,argv);
 	else if (!ft_strcmp(argv[1],"-1"))
 		printf("-1\n");
 	else 
-		printf("error ... ! \n");
+		printf("error ... ! \n");*/
 	i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/13 03:59:19 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/13 07:05:17 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ struct ft_var
 	struct stat st;
 	int         m;
 	int         blck;
-	t_flags         *f;
+	t_flags         f;
 }               ft_var;
 
 
@@ -72,7 +72,7 @@ int ft_arg_parse_flags(t_flags *flags,char **av);
 int max(d_list *l, int *blk);
 void print(d_list *dir, int m,t_flags f);
 
-void printReverseTree(node *tree, int m);
+void printReverseTree(node *tree, int m,t_flags *f);
 void printTree(node *tree, int m,t_flags *f);
 d_list	*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *var);
 node	*addnode(node **tree,char *str ,d_list *l,struct ft_var *var);

@@ -27,7 +27,6 @@ d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *v
 	d_list *tmp;
 	char *s;
 
-	int k ;
 	tmp = *lst;
 	if(st && str)
 	{

@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/13 04:20:40 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/13 07:07:24 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -68,7 +68,8 @@ int			lsl(int ac ,char *av,t_flags flag)
 	node			*tree;
 
 	v.m = 0;
-	v.f = &flag;
+	v.blck = 0;
+	v.f = flag;
 	tree = NULL;
 	l_dir = tmp;
 	buff = ft_strnew(sizeof(av[2]));
@@ -90,12 +91,16 @@ int			lsl(int ac ,char *av,t_flags flag)
 	ft_putstr("total ");
 	ft_putnbr(v.blck);
 	ft_putstr("\n");
-		printTree(tree,v.m,v.f);
-	if(flag.flag_r == 0)
-		printf("00000000000000000000000000");
+	if(flag.flag_r == 1)
+	printReverseTree(tree,v.m,&v.f);
+	/*printf("... l = %d \n",flag.flag_l);
+	printf("... R = %d \n",flag.flag_R);
+	printf("... a = %d \n",flag.flag_a);
+	printf("... r = %d \n",flag.flag_r);
+	printf("... t = %d \n",flag.flag_t);
+*/	
 	else
-		printf("111111111111111111111111111");
-//		printReverseTree(tree,v.m);
+	printTree(tree,v.m,&v.f);
 	printf("\n");
 	return 0;
 }
