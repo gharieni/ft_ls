@@ -6,30 +6,10 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/29 13:39:15 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/13 04:08:32 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
-
-int max(d_list *d_dir, int *blk)
-{
-	d_list *l;
-	int m;
-
-	l = d_dir;
-	if(blk)
-		*blk = *blk + l->content->st_blocks;
-	m = 1;
-	while(l != NULL)
-	{
-		if(ft_strlen(ft_itoa(l->content->st_size)) > m)
-			m = ft_strlen(ft_itoa(l->content->st_size));
-		l = l->next;
-	}
-	return (m);
-}
-
-
 void	print(d_list *d_dir, int m,t_flags flags)
 {
 
@@ -70,6 +50,10 @@ void	print(d_list *d_dir, int m,t_flags flags)
 		ft_putstr(grp->gr_name);
 	ft_putstr("  ");
 	// SIZE >>
+	
+	//**********      probleme >>>>>>>>>  *********************
+	
+
 	while (m-- - ft_strlen(ft_itoa(d_dir->content->st_size)))
 		ft_putstr(" ");
 	ft_putnbr(d_dir->content->st_size);

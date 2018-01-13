@@ -2,12 +2,32 @@
 #include <errno.h>
 #include <string.h>
 
-d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,int *m,int *blk)
+
+int max(d_list *d_dir, int *blk)
+{
+	d_list *l;
+	int m;
+
+	l = d_dir;
+	if(blk)
+		*blk = *blk + l->content->st_blocks;
+	m = 1;
+	while(l != NULL)
+	{
+		if(ft_strlen(ft_itoa(l->content->st_size)) > m)
+			m = ft_strlen(ft_itoa(l->content->st_size));
+		l = l->next;
+	}
+	return (m);
+}
+
+d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *v)
 {
 	d_list *new;
 	d_list *tmp;
 	char *s;
 
+	int k ;
 	tmp = *lst;
 	if(st && str)
 	{
@@ -16,8 +36,10 @@ d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,int *m,int *blk)
 		new->content = (struct stat*)malloc(sizeof(struct stat));
 		*new->content = *st;
 		new->next = NULL;
-		if (max(new,blk) > *m)
-			*m = max(new,0);
+		if (max(new,&v->blck) > v->m)
+			v->m = max(new,0);
+		//if (k  > v->m)
+			//v->m = k;
 	}
 	if(!*lst)
 		*lst = new;

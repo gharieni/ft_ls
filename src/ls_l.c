@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/09 22:44:55 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/13 04:20:40 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -55,11 +55,9 @@ char*	file_str(char *s1, const char *s2)
 }
 
 int			lsl(int ac ,char *av,t_flags flag)
-
 {
-	int m;
-//	struct	stat	st;
 	struct	dirent	*dir;
+	struct ft_var	v;
 	DIR				*pdir;
 	char			*buff;
 	char			*str;
@@ -67,11 +65,10 @@ int			lsl(int ac ,char *av,t_flags flag)
 	int				i = 2;
 	d_list			*l_dir;
 	d_list			*tmp;
-	node *tree;
-	struct	ft_var	*var;
-	//t_flags *flags;
+	node			*tree;
 
-	//flags = (t_flags*)malloc(sizeof(t_flags));
+	v.m = 0;
+	v.f = &flag;
 	tree = NULL;
 	l_dir = tmp;
 	buff = ft_strnew(sizeof(av[2]));
@@ -79,27 +76,26 @@ int			lsl(int ac ,char *av,t_flags flag)
 	while (!(pdir = opendir(buff)) && i--)
 		s = ft_basename(&buff);
 	i = 0;
-	//ft_arg_parse_flags(flags,av);
 	while ((dir = readdir(pdir)) != NULL)
 	{
-		if(!s || (!ft_strcmp( s, dir->d_name)))
+		if(!s || (!ft_strcmp(s, dir->d_name)))
 		{
 			str = file_str(buff,dir->d_name);
-			stat(str,var->st);
-			//tmp = lst_add(dir->d_name,&tmp,&st,&m,&i);
-			tree = addnode(&tree,dir->d_name,tmp,&var->st,&m,&i);
+			stat(str,&v.st);
+			tree = addnode(&tree,dir->d_name,tmp,&v);
 		}
 	}
-l_dir = tmp;
-		ft_putstr("total ");
-		ft_putnbr(i);
-		ft_putstr("\n");
-//	while(l_dir)
-//	{
-		//print(l_dir,m);
-		printTree(tree,m,&flag);
-//		l_dir = l_dir->next;
-		printf("\n");
-//	}
-	return (0);
+
+	l_dir = tmp;
+	ft_putstr("total ");
+	ft_putnbr(v.blck);
+	ft_putstr("\n");
+		printTree(tree,v.m,v.f);
+	if(flag.flag_r == 0)
+		printf("00000000000000000000000000");
+	else
+		printf("111111111111111111111111111");
+//		printReverseTree(tree,v.m);
+	printf("\n");
+	return 0;
 }

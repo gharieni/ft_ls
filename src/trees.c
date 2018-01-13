@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/09 18:00:13 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/13 04:12:19 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ int cmpar(void *f1 ,void *f2,int fact)
 	else
 		if(ft_strcmp((char*)f1,(char*)f2) > 0)
 			return 1;
+	//else if(fact == 3)
+	//else
 	return (0);
 }
 
 
-node *addnode(node **tree ,char *str, d_list *l,struct stat *st,int *m,int *blk)
+node *addnode(node **tree ,char *str, d_list *l,struct ft_var *var)
 {
 
 	node *tmpNode;
@@ -33,7 +35,7 @@ node *addnode(node **tree ,char *str, d_list *l,struct stat *st,int *m,int *blk)
 
 	tmpTree = *tree;
 	node *elem = malloc(sizeof(node));
-	elem->val = lst_add(str,&l,st,m,blk);
+	elem->val = lst_add(str,&l,&var->st,var);
 	elem->left = NULL;
 	elem->right = NULL;
 	/*
