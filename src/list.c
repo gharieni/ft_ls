@@ -9,8 +9,10 @@ int max(d_list *d_dir, int *blk)
 	int m;
 
 	l = d_dir;
-	if(blk)
-		*blk = *blk + l->content->st_blocks;
+//	if((f->flag_a && (tree->val->nom[0] == '.'))
+//			|| (tree->val->nom[0] != '.'))
+		if(blk)
+			*blk = *blk + l->content->st_blocks;
 	m = 1;
 	while(l != NULL)
 	{
@@ -37,8 +39,6 @@ d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *v
 		new->next = NULL;
 		if (max(new,&v->blck) > v->m)
 			v->m = max(new,0);
-		//if (k  > v->m)
-			//v->m = k;
 	}
 	if(!*lst)
 		*lst = new;

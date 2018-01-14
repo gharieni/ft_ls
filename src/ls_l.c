@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/14 06:18:36 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/14 07:22:08 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -88,7 +88,7 @@ int			lsl(int ac ,char *av,t_flags flag)
 	}
 
 	l_dir = tmp;
-	if(flag.flag_l != 1)
+	if(flag.flag_l == 1)
 	{
 	ft_putstr("total ");
 	ft_putnbr(v.blck);
@@ -98,6 +98,5 @@ int			lsl(int ac ,char *av,t_flags flag)
 	printReverseTree(tree,v.m,&v.f);
 	else
 	printTree(tree,v.m,&v.f);
-	printf("\n");
 	return 0;
 }
