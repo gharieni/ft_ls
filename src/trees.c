@@ -6,24 +6,27 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/13 06:49:12 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/14 07:02:52 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "ft_ls.h"
 
 int cmpar(void *f1 ,void *f2,t_flags f)
 {
-	/*if (fact == 1)
-	{	if((int)f1 > (int)f2)
-		return (1);
-	}
-	else*/
-	if(f.flag_l == 1)
-		if(ft_strcmp((char*)f1,(char*)f2) > 0)
+	int k;
+
+	k = 0;
+	if(f.flag_t == 1)
+	{
+		if(((d_list*)f1)->content->st_mtime < ((d_list*)f2)->content->st_mtime)
 			return 1;
-	//else if(fact == 3)
-	//else
+		if(((d_list*)f1)->content->st_mtime == ((d_list*)f2)->content->st_mtime)
+			if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
+				return 1;
+	}
+	else if (f.flag_l == 1)
+		if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
+			return 1;
 	return 0;
 }
 
@@ -33,26 +36,18 @@ node *addnode(node **tree ,char *str, d_list *l,struct ft_var *var)
 
 	node *tmpNode;
 	node *tmpTree;
-
 	tmpTree = *tree;
 	node *elem = malloc(sizeof(node));
+
 	elem->val = lst_add(str,&l,&var->st,var);
 	elem->left = NULL;
 	elem->right = NULL;
-	/*
-	 *  size  1
-	 *  tri 2
-	 *  tri reverse 3
-	 *  time 4
-	 *  normal 42
-	 */
 
 	if(tmpTree)
 		do
 		{
 			tmpNode = tmpTree;
-			if (cmpar((void*)l->nom ,(void*)tmpTree->val->nom,var->f))
-				//	if(l->content->st_size > tmpTree->val->content->st_size)
+			if (cmpar((void*)l ,(void*)tmpTree->val,var->f))
 			{
 				tmpTree = tmpTree->right;
 				if(!tmpTree) 
@@ -68,7 +63,6 @@ node *addnode(node **tree ,char *str, d_list *l,struct ft_var *var)
 	else  *tree = elem;
 	return(*tree);
 }
-
 
 void printTree(node *tree, int m,t_flags *f)
 {
@@ -89,7 +83,6 @@ void printReverseTree(node *tree,int m,t_flags *f)
 		print(tree->val,m,*f);
 	if(tree->left)  printReverseTree(tree->left,m,f);
 }
-
 
 void clearTree(node **tree)
 {

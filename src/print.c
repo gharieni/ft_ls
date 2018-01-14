@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/13 04:08:32 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/14 06:17:12 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -21,7 +21,8 @@ void	print(d_list *d_dir, int m,t_flags flags)
 	time_t				ttime;
 	char				*mtime;
 	char				*dat;
-
+if(flags.flag_l == 1)
+{
 	mtime = NULL;
 	time_tmp = NULL;
 	mtime = malloc(sizeof(char *));
@@ -69,6 +70,7 @@ void	print(d_list *d_dir, int m,t_flags flags)
 	ft_putstr(dat);
 	ft_putstr(" ");
 	// NAME >>
+	}
 	ft_putstr(d_dir->nom);
 	ft_putstr("\n");
 }
