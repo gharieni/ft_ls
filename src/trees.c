@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/14 07:02:52 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/15 03:35:08 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -18,13 +18,14 @@ int cmpar(void *f1 ,void *f2,t_flags f)
 	k = 0;
 	if(f.flag_t == 1)
 	{
+		if(((d_list*)f1)->content->st_mtime > ((d_list*)f2)->content->st_mtime)
+			return 0;
 		if(((d_list*)f1)->content->st_mtime < ((d_list*)f2)->content->st_mtime)
 			return 1;
-		if(((d_list*)f1)->content->st_mtime == ((d_list*)f2)->content->st_mtime)
-			if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
-				return 1;
 	}
-	else if (f.flag_l == 1)
+	if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
+				return 1;
+	else if (f.flag_l != 1)
 		if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
 			return 1;
 	return 0;

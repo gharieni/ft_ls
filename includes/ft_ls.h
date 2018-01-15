@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/13 07:05:17 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/15 04:34:08 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 #include <time.h>
 #include <langinfo.h>
 #include "libft/libft.h"
-
-
 
 #define error 0
 #define succes 1
@@ -49,7 +47,6 @@ typedef struct s_flags
 	unsigned int        flag_error;
 }                t_flags;
 
-
 struct ft_var
 {
 	struct stat st;
@@ -58,8 +55,6 @@ struct ft_var
 	t_flags         f;
 }               ft_var;
 
-
-
 typedef struct tnode
 {
 	d_list		*val;
@@ -67,9 +62,8 @@ typedef struct tnode
 	struct tnode		*right;
 }					node;
 
-
 int ft_arg_parse_flags(t_flags *flags,char **av);
-int max(d_list *l, int *blk);
+int max(d_list *l, int *blk,int a);
 void print(d_list *dir, int m,t_flags f);
 
 void printReverseTree(node *tree, int m,t_flags *f);

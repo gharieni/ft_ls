@@ -3,14 +3,14 @@
 #include <string.h>
 
 
-int max(d_list *d_dir, int *blk)
+int max(d_list *d_dir, int *blk, int a)
 {
 	d_list *l;
 	int m;
 
 	l = d_dir;
-//	if((f->flag_a && (tree->val->nom[0] == '.'))
-//			|| (tree->val->nom[0] != '.'))
+	if((a && (l->nom[0] == '.'))
+			|| (l->nom[0] != '.'))
 		if(blk)
 			*blk = *blk + l->content->st_blocks;
 	m = 1;
@@ -37,8 +37,8 @@ d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *v
 		new->content = (struct stat*)malloc(sizeof(struct stat));
 		*new->content = *st;
 		new->next = NULL;
-		if (max(new,&v->blck) > v->m)
-			v->m = max(new,0);
+		if (max(new,&v->blck,v->f.flag_a) > v->m)
+			v->m = max(new,0,v->f.flag_a);
 	}
 	if(!*lst)
 		*lst = new;
