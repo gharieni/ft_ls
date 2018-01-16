@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/15 03:35:08 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/15 10:07:54 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -65,24 +65,24 @@ node *addnode(node **tree ,char *str, d_list *l,struct ft_var *var)
 	return(*tree);
 }
 
-void printTree(node *tree, int m,t_flags *f)
+void printTree(node *tree, int m,int n,t_flags *f)
 {
 	if(!tree) return;
-	if(tree->left)  printTree(tree->left,m,f);
+	if(tree->left)  printTree(tree->left,m,n,f);
 	if((f->flag_a && (tree->val->nom[0] == '.'))
 			|| (tree->val->nom[0] != '.'))
-		print(tree->val,m,*f);
-	if(tree->right) printTree(tree->right,m,f);
+		print(tree->val,m,n,*f);
+	if(tree->right) printTree(tree->right,m,n,f);
 }
 
-void printReverseTree(node *tree,int m,t_flags *f)
+void printReverseTree(node *tree,int m,int n,t_flags *f)
 {
 	if(!tree) return;
-	if(tree->right) printReverseTree(tree->right,m,f);
+	if(tree->right) printReverseTree(tree->right,m,n,f);
 	if((f->flag_a && (tree->val->nom[0] == '.'))
 			|| (tree->val->nom[0] != '.'))
-		print(tree->val,m,*f);
-	if(tree->left)  printReverseTree(tree->left,m,f);
+		print(tree->val,m,n,*f);
+	if(tree->left)  printReverseTree(tree->left,m,n,f);
 }
 
 void clearTree(node **tree)

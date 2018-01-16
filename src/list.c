@@ -3,10 +3,11 @@
 #include <string.h>
 
 
-int max(d_list *d_dir, int *blk, int a)
+int max(d_list *d_dir, int *blk, int a,int *n)
 {
 	d_list *l;
 	int m;
+	int j;
 
 	l = d_dir;
 	if((a && (l->nom[0] == '.'))
@@ -14,12 +15,21 @@ int max(d_list *d_dir, int *blk, int a)
 		if(blk)
 			*blk = *blk + l->content->st_blocks;
 	m = 1;
+	j = 1;
 	while(l != NULL)
 	{
-		if(ft_strlen(ft_itoa(l->content->st_size)) > m)
-			m = ft_strlen(ft_itoa(l->content->st_size));
-		l = l->next;
+		if((a && (l->nom[0] == '.'))
+				|| (l->nom[0] != '.'))
+		{
+			if(ft_strlen(ft_itoa(l->content->st_size)) > m)
+				m = ft_strlen(ft_itoa(l->content->st_size));
+			if(ft_strlen(ft_itoa(l->content->st_nlink)) > j)
+				j = ft_strlen(ft_itoa(l->content->st_nlink));
+		}
+			l = l->next;
 	}
+	if(j > *n)
+		*n = j;
 	return (m);
 }
 
@@ -37,8 +47,8 @@ d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *v
 		new->content = (struct stat*)malloc(sizeof(struct stat));
 		*new->content = *st;
 		new->next = NULL;
-		if (max(new,&v->blck,v->f.flag_a) > v->m)
-			v->m = max(new,0,v->f.flag_a);
+		if (max(new,&v->blck,v->f.flag_a,&v->m[1]) > v->m[0])
+			v->m[0] = max(new,0,v->f.flag_a,&v->m[1]);
 	}
 	if(!*lst)
 		*lst = new;

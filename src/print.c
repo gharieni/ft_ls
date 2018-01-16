@@ -6,11 +6,11 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/14 07:19:34 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/15 10:10:17 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
-void	print(d_list *d_dir, int m,t_flags flags)
+void	print(d_list *d_dir, int m,int n,t_flags flags)
 {
 	struct		passwd	*pwd;
 	struct		group		*grp;
@@ -37,6 +37,9 @@ void	print(d_list *d_dir, int m,t_flags flags)
 		ft_putstr( (d_dir->content->st_mode & S_IWOTH) ? "w" : "-");
 		ft_putstr( (d_dir->content->st_mode & S_IXOTH) ? "x  " : "-  ");
 		// NOMBRE DE LIEN >>
+		while (n-- - ft_strlen(ft_itoa(d_dir->content->st_nlink)))
+			ft_putstr(" ");
+		
 		ft_putnbr(d_dir->content->st_nlink);
 		ft_putstr(" ");
 		// USER  >>

@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/15 04:38:48 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/15 10:09:16 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -67,7 +67,8 @@ int			lsl(int ac ,char *av,t_flags flag)
 	d_list			*tmp;
 	node			*tree;
 
-	v.m = 0;
+	v.m[0] = 0;
+	v.m[1] = 0;
 	v.blck = 0;
 	v.f = flag;
 	tree = NULL;
@@ -95,8 +96,8 @@ int			lsl(int ac ,char *av,t_flags flag)
 	ft_putstr("\n");
 	}
 	if(flag.flag_r == 1)
-	printReverseTree(tree,v.m,&v.f);
+	printReverseTree(tree,*v.m,v.m[1],&v.f);
 	else
-	printTree(tree,v.m,&v.f);
+	printTree(tree,*v.m,v.m[1],&v.f);
 	return 0;
 }
