@@ -6,10 +6,23 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/15 10:07:54 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/18 09:17:04 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
+
+void        display_link(char *data)
+{
+	char    buf[256];
+	int        len;
+
+	ft_putstr(" -> ");
+	len = readlink(data, buf, sizeof(buf));
+	buf[len] = '\0';
+	ft_putstr(buf);
+}
+
+
 
 int cmpar(void *f1 ,void *f2,t_flags f)
 {
@@ -24,7 +37,7 @@ int cmpar(void *f1 ,void *f2,t_flags f)
 			return 1;
 	}
 	if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
-				return 1;
+		return 1;
 	else if (f.flag_l != 1)
 		if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
 			return 1;
@@ -65,24 +78,45 @@ node *addnode(node **tree ,char *str, d_list *l,struct ft_var *var)
 	return(*tree);
 }
 
-void printTree(node *tree, int m,int n,t_flags *f)
+void printTree(node *tree, int m,int n,t_flags *f,char *path)
 {
+	char *str;
 	if(!tree) return;
-	if(tree->left)  printTree(tree->left,m,n,f);
+	if(tree->left)  printTree(tree->left,m,n,f,path);
 	if((f->flag_a && (tree->val->nom[0] == '.'))
 			|| (tree->val->nom[0] != '.'))
+	{
 		print(tree->val,m,n,*f);
-	if(tree->right) printTree(tree->right,m,n,f);
+		if(S_ISLNK(tree->val->content->st_mode))
+		{
+			str = file_str(path,tree->val->nom);
+			display_link(str);
+		}
+		ft_putchar('\n');
+
+	}
+	if(tree->right) printTree(tree->right,m,n,f,path);
 }
 
-void printReverseTree(node *tree,int m,int n,t_flags *f)
+void printReverseTree(node *tree,int m,int n,t_flags *f,char *path)
 {
+	char *str;
+
 	if(!tree) return;
-	if(tree->right) printReverseTree(tree->right,m,n,f);
+	if(tree->right) printReverseTree(tree->right,m,n,f,path);
 	if((f->flag_a && (tree->val->nom[0] == '.'))
 			|| (tree->val->nom[0] != '.'))
+	{
 		print(tree->val,m,n,*f);
-	if(tree->left)  printReverseTree(tree->left,m,n,f);
+		if(S_ISLNK(tree->val->content->st_mode))
+		{
+			str = file_str(path,tree->val->nom);
+			display_link(str);
+		}
+		ft_putchar('\n');
+
+	}
+	if(tree->left)  printReverseTree(tree->left,m,n,f,path);
 }
 
 void clearTree(node **tree)

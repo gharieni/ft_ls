@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/15 10:06:53 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/18 09:14:59 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct l_list
 {
 	char			*nom;
 	struct			stat *content;
+	char			*path;
 	struct l_list	*next;
 }					d_list;
 
@@ -53,6 +54,7 @@ struct ft_var
 	int         m[2];
 	int         blck;
 	t_flags         f;
+	char		*path;
 }               ft_var;
 
 typedef struct tnode
@@ -62,12 +64,13 @@ typedef struct tnode
 	struct tnode		*right;
 }					node;
 
+char*	file_str(char *s1, const char *s2);
 int ft_arg_parse_flags(t_flags *flags,char **av);
 int max(d_list *l, int *blk,int a,int *n);
 void print(d_list *dir, int m,int n,t_flags f);
 
-void printReverseTree(node *tree, int m,int n,t_flags *f);
-void printTree(node *tree, int m,int n,t_flags *f);
+void printReverseTree(node *tree, int m,int n,t_flags *f, char *path);
+void printTree(node *tree, int m,int n,t_flags *f,char *path);
 d_list	*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *var);
 node	*addnode(node **tree,char *str ,d_list *l,struct ft_var *var);
 

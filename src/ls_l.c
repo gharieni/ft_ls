@@ -6,12 +6,13 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/15 10:09:16 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/18 09:15:02 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 #include <errno.h>
 #include <string.h>
+
 
 char*	ft_basename(char** str)
 {
@@ -84,6 +85,7 @@ int			lsl(int ac ,char *av,t_flags flag)
 		{
 			str = file_str(buff,dir->d_name);
 			lstat(str,&v.st);
+			v.path = ft_strdup(buff);
 			tree = addnode(&tree,dir->d_name,tmp,&v);
 		}
 	}
@@ -96,8 +98,8 @@ int			lsl(int ac ,char *av,t_flags flag)
 	ft_putstr("\n");
 	}
 	if(flag.flag_r == 1)
-	printReverseTree(tree,*v.m,v.m[1],&v.f);
+	printReverseTree(tree,*v.m,v.m[1],&v.f,v.path);
 	else
-	printTree(tree,*v.m,v.m[1],&v.f);
+	printTree(tree,*v.m,v.m[1],&v.f,v.path);
 	return 0;
 }
