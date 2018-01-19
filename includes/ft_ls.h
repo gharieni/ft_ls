@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/18 09:14:59 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/19 20:22:36 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 
 #define error 0
 #define succes 1
+
+typedef struct ddir
+{
+	char *dir;
+	struct ddir  *next;
+}				r_dir;
 
 typedef struct l_list
 {
