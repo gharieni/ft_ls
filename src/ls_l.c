@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/19 22:39:05 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/21 09:25:01 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -95,11 +95,14 @@ int			lsl(int ac ,char *av,t_flags flag)
 	v.blck = 0;
 	v.f = flag;
 	tree = NULL;
-	l_dir = tmp;
-	buff = ft_strnew(sizeof(av[2]));
+	tmp = NULL;
+	buff = ft_strnew(255);
 	ft_strcpy(buff,av);
-	while (!(pdir = opendir(buff)) && i--)
+	lst = NULL;
+	if (!(pdir = opendir(buff)) && i--)
+	{
 		s = ft_basename(&buff);
+	}
 	i = 0;
 	while ((dir = readdir(pdir)) != NULL)
 	{
@@ -107,15 +110,17 @@ int			lsl(int ac ,char *av,t_flags flag)
 		{
 			str = file_str(buff,dir->d_name);
 			lstat(str,&v.st);
-			if (S_ISDIR(v.st.st_mode))
+			if (S_ISDIR(v.st.st_mode) )
 				addlist(str,&lst);
 			v.path = ft_strdup(buff);
 			tree = addnode(&tree,dir->d_name,tmp,&v);
 		}
 	}
-
-	l_dir = tmp;
-	ft_putstr(av);
+	if(ac == -42)
+	{
+		ft_putstr(av);
+		ft_putendl(":");
+	}
 	if(flag.flag_l == 1)
 	{
 		ft_putstr("total ");
@@ -127,18 +132,20 @@ int			lsl(int ac ,char *av,t_flags flag)
 	else
 		printTree(tree,*v.m,v.m[1],&v.f,v.path);
 
+	s = NULL;;
 	if(flag.flag_R == 1 && lst)
 	{
 		while(lst)
 		{
-			if(lst->dir[2] != '.')
-			{	ft_putstr("test ");
-				printf("%s\n",lst->dir);
-				lsl(ac,lst->dir,flag);
+			char *tt = ft_basename(&lst->dir);
+			if(tt[0] != '.')
+			{
+				lst->dir = ft_strjoin(lst->dir,tt);
+				ft_putchar('\n');
+				lsl(-42,lst->dir,flag);
 			}
 				lst = lst->next;
 		}
 	}
-
 	return 0;
 }
