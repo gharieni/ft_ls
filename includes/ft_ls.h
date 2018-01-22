@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/19 20:22:36 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/22 16:52:29 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct tnode
 	struct tnode		*right;
 }					node;
 
+void clearTree(node **tree);
 char*	file_str(char *s1, const char *s2);
 int ft_arg_parse_flags(t_flags *flags,char **av);
 int max(d_list *l, int *blk,int a,int *n);
