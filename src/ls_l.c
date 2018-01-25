@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/22 16:52:56 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/25 15:17:23 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -45,6 +45,7 @@ char*	file_str(char *s1, const char *s2)
 {
 
 	int i;
+	char *tmp;
 
 	i = 0;
 	while (s1[i++]);
@@ -52,7 +53,10 @@ char*	file_str(char *s1, const char *s2)
 		s1[i - 2] = '\0';
 	else if (ft_strncmp(&s1[i - 2],"/",1))
 		s1 = ft_strjoin(s1,"/");
-	return(ft_strjoin(s1,s2));
+	tmp = ft_strjoin(s1,s2);
+	free(s1);
+	s1 = NULL;
+	return(tmp);
 }
 
 void addlist(char *str,r_dir **lst)
@@ -89,6 +93,7 @@ int			lsl(int ac ,char *av,t_flags flag)
 	d_list			*tmp;
 	node			*tree;
 	r_dir			*lst;
+	r_dir			*tlst;
 
 	v.m[0] = 0;
 	v.m[1] = 0;
@@ -104,8 +109,11 @@ int			lsl(int ac ,char *av,t_flags flag)
 	{
 		s = ft_basename(&buff);
 	}
+//	if (errno == EACCES) /* Accès interdit */
+//		    puts("Acces interdit");
+
 	i = 0;
-	while ((dir = readdir(pdir)) != NULL)
+	while (pdir && (dir = readdir(pdir)) != NULL)
 	{
 		if(!s || (!strcmp(s, dir->d_name)))
 		{
@@ -115,27 +123,40 @@ int			lsl(int ac ,char *av,t_flags flag)
 				addlist(str,&lst);
 			v.path = ft_strdup(buff);
 			tree = addnode(&tree,dir->d_name,tmp,&v);
-		}
+			free(str);
+			str = NULL;
+			}
+	if (!S_ISLNK(v.st.st_mode) )
+		free(v.path);
 	}
-	closedir(pdir);
-	if(ac == -42)
+	
+		if(pdir && ac == -42)
 	{
 		ft_putstr(av);
 		ft_putendl(":");
 	}
-	if(flag.flag_l == 1)
+	if(pdir && flag.flag_l == 1)
 	{
 		ft_putstr("total ");
 		ft_putnbr(v.blck);
 		ft_putstr("\n");
 	}
 	if(flag.flag_r == 1)
+	{
 		printReverseTree(tree,*v.m,v.m[1],&v.f,v.path);
+	}
 	else
+	{
 		printTree(tree,*v.m,v.m[1],&v.f,v.path);
+	}
+	
+	if(pdir)
+		(void)closedir(pdir);
+	else
+		ft_putstr(": Permission denied");
 
-	s = NULL;;
-	if(flag.flag_R == 1 && lst)
+	free(s);
+	if(pdir && flag.flag_R == 1 && lst)
 	{
 		while(lst)
 		{
@@ -146,10 +167,16 @@ int			lsl(int ac ,char *av,t_flags flag)
 				ft_putchar('\n');
 				lsl(-42,lst->dir,flag);
 			}
+				free(tt);
+				tt = NULL;
+				tlst = lst;
 				lst = lst->next;
+				free(tlst->dir);
+				free(tlst);
 		}
 	}
-
-	clearTree(&tree);
+	//free(buff);
+	//buff = NULL;
+	//clearTree(&tree);
 	return 0;
 }

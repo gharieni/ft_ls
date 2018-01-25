@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/22 11:55:09 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/23 12:23:41 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -17,14 +17,15 @@ void	print(d_list *d_dir, int m,int n,t_flags flags)
 	struct		group		*grp;
 	time_t				*time_tmp;
 	time_t				ttime;
-	char				*mtime;
+	char				mtime[25];
 	char				*dat;
-
+	char *c;
+	int i;
 	if(flags.flag_l == 1)
 	{
-		mtime = NULL;
+		//mtime = NULL;
 		time_tmp = NULL;
-		mtime = malloc(sizeof(char *));
+	//	mtime = malloc(sizeof(mtime));
 		time_tmp = malloc(sizeof(time_t));
 		int i;
 		// DROIT >>
@@ -40,9 +41,10 @@ void	print(d_list *d_dir, int m,int n,t_flags flags)
 		ft_putchar( (d_dir->content->st_mode & S_IWOTH) ? 'w' : '-');
 		ft_putstr( (d_dir->content->st_mode & S_IXOTH) ? "x  " : "-  ");
 		// NOMBRE DE LIEN >>
-		while (n-- - ft_strlen(ft_itoa(d_dir->content->st_nlink)))
+		c = ft_itoa(d_dir->content->st_nlink);
+		while (n-- - ft_strlen(c))
 			ft_putchar(' ');
-
+		free(c);
 		ft_putnbr(d_dir->content->st_nlink);
 		ft_putchar(' ');
 		// USER  >>
@@ -54,19 +56,24 @@ void	print(d_list *d_dir, int m,int n,t_flags flags)
 			ft_putstr(grp->gr_name);
 		ft_putstr("  ");
 		// SIZE >>
-		while (m-- - ft_strlen(ft_itoa(d_dir->content->st_size)))
+		 c = ft_itoa(d_dir->content->st_size);
+		while (m-- - ft_strlen(c))
 			ft_putchar(' ');
+		free(c);
 		ft_putnbr(d_dir->content->st_size);
 		ft_putchar(' ');
 		//TIME && DATE
 		ttime = time(NULL);
 		*time_tmp = d_dir->content->st_mtime;
-		mtime = ctime(time_tmp);
+		ft_strcpy(mtime,ctime(time_tmp));
+		free(time_tmp);
 		if ((ttime - d_dir->content->st_mtime) < 15770000)
 			dat = ft_strsub(mtime,4,12);
 		else
 			dat = ft_strcat(ft_strsub(mtime,4,7), ft_strsub(mtime,19,5));
 		ft_putstr(dat);
+		free(dat);
+		dat = NULL;
 		ft_putchar(' ');
 	}
 	// NAME >>

@@ -8,6 +8,7 @@ int max(d_list *d_dir, int *blk, int a,int *n)
 	d_list *l;
 	int m;
 	int j;
+	char *c;
 
 	l = d_dir;
 	if((a && (l->nom[0] == '.'))
@@ -21,10 +22,20 @@ int max(d_list *d_dir, int *blk, int a,int *n)
 		if((a && (l->nom[0] == '.'))
 				|| (l->nom[0] != '.'))
 		{
-			if(ft_strlen(ft_itoa(l->content->st_size)) > m)
-				m = ft_strlen(ft_itoa(l->content->st_size));
-			if(ft_strlen(ft_itoa(l->content->st_nlink)) > j)
+			c = NULL;
+			c = ft_itoa(l->content->st_size);
+			if(ft_strlen(c) > m)
+			{
+				free(c);
+				c = ft_itoa(l->content->st_size);
+				m = ft_strlen(c);
+			}
+			free(c);
+			c = NULL;
+			c = ft_itoa(l->content->st_nlink);
+			if(ft_strlen(c) > j)
 				j = ft_strlen(ft_itoa(l->content->st_nlink));
+			free(c);
 		}
 			l = l->next;
 	}
