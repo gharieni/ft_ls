@@ -6,13 +6,10 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/25 15:17:23 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/26 19:28:14 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
-#include <errno.h>
-#include <string.h>
-
 
 char*	ft_basename(char** str)
 {
@@ -39,7 +36,6 @@ char*	ft_basename(char** str)
 	}
 	return(s);
 }
-
 
 char*	file_str(char *s1, const char *s2)
 {
@@ -109,8 +105,9 @@ int			lsl(int ac ,char *av,t_flags flag)
 	{
 		s = ft_basename(&buff);
 	}
-//	if (errno == EACCES) /* Accès interdit */
-//		    puts("Acces interdit");
+
+	//	if (errno == EACCES) /* Accès interdit */
+	//	//		    puts("Acces interdit");
 
 	i = 0;
 	while (pdir && (dir = readdir(pdir)) != NULL)
@@ -130,7 +127,7 @@ int			lsl(int ac ,char *av,t_flags flag)
 		free(v.path);
 	}
 	
-		if(pdir && ac == -42)
+		if(ac == -42)
 	{
 		ft_putstr(av);
 		ft_putendl(":");
@@ -153,8 +150,11 @@ int			lsl(int ac ,char *av,t_flags flag)
 	if(pdir)
 		(void)closedir(pdir);
 	else
-		ft_putstr(": Permission denied");
-
+	{
+		ft_putstr("ls: ");
+		ft_putstr(ft_basename(&av));
+		ft_putendl(": Permission denied");
+	}
 	free(s);
 	if(pdir && flag.flag_R == 1 && lst)
 	{

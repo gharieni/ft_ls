@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/25 14:27:45 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/26 16:05:40 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -88,6 +88,7 @@ void clearTree(node **tree)
 	//free(tmpTree->val->nom);
 	//free(tmpTree->val);
 	free(tmpTree);
+	tmpTree = NULL;
 }
 
 void printTree(node *tree, int m,int n,t_flags *f,char *path)
