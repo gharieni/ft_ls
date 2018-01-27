@@ -6,10 +6,31 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/26 19:28:14 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/27 21:40:14 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
+
+void addlist(char *str,r_dir **lst)
+{
+	r_dir *tmp;
+	r_dir *ls;
+
+	tmp = *lst;
+	ls = malloc(sizeof(r_dir));
+	while(tmp && tmp->next)
+		tmp = tmp->next;
+	ls->dir = ft_strdup(str);
+	ls->next = NULL;
+	if (!*lst)
+		*lst = ls;
+	else
+	{
+		while(tmp->next)
+			tmp = tmp->next;
+		tmp->next = ls;
+	}
+}
 
 char*	ft_basename(char** str)
 {
@@ -54,28 +75,6 @@ char*	file_str(char *s1, const char *s2)
 	s1 = NULL;
 	return(tmp);
 }
-
-void addlist(char *str,r_dir **lst)
-{
-	r_dir *tmp;
-	r_dir *ls;
-
-	tmp = *lst;
-	ls = malloc(sizeof(r_dir));
-	while(tmp && tmp->next)
-		tmp = tmp->next;
-	ls->dir = ft_strdup(str);
-	ls->next = NULL;
-	if (!*lst)
-		*lst = ls;
-	else
-	{
-		while(tmp->next)
-			tmp = tmp->next;
-		tmp->next = ls;
-	}
-}
-
 int			lsl(int ac ,char *av,t_flags flag)
 {
 	struct	dirent	*dir;
@@ -116,9 +115,7 @@ int			lsl(int ac ,char *av,t_flags flag)
 		{
 			str = file_str(buff,dir->d_name);
 			lstat(str,&v.st);
-			if (S_ISDIR(v.st.st_mode) )
-				addlist(str,&lst);
-			v.path = ft_strdup(buff);
+						v.path = ft_strdup(buff);
 			tree = addnode(&tree,dir->d_name,tmp,&v);
 			free(str);
 			str = NULL;
@@ -144,7 +141,8 @@ int			lsl(int ac ,char *av,t_flags flag)
 	}
 	else
 	{
-		printTree(tree,*v.m,v.m[1],&v.f,v.path);
+		v.lst = NULL;
+		printTree(tree,*v.m,v.m[1],&v.f,&v);
 	}
 	
 	if(pdir)
@@ -156,21 +154,21 @@ int			lsl(int ac ,char *av,t_flags flag)
 		ft_putendl(": Permission denied");
 	}
 	free(s);
-	if(pdir && flag.flag_R == 1 && lst)
+	if(flag.flag_R == 1 && v.lst)
 	{
-		while(lst)
+		while(v.lst)
 		{
-			char *tt = ft_basename(&lst->dir);
+			char *tt = ft_basename(&v.lst->dir);
 			if(tt[0] != '.')
 			{
-				lst->dir = ft_strjoin(lst->dir,tt);
+				v.lst->dir = ft_strjoin(v.lst->dir,tt);
 				ft_putchar('\n');
-				lsl(-42,lst->dir,flag);
+				lsl(-42,v.lst->dir,flag);
 			}
 				free(tt);
 				tt = NULL;
-				tlst = lst;
-				lst = lst->next;
+				tlst = v.lst;
+				v.lst = v.lst->next;
 				free(tlst->dir);
 				free(tlst);
 		}

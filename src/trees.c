@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/26 16:05:40 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/27 21:39:26 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -90,26 +90,32 @@ void clearTree(node **tree)
 	free(tmpTree);
 	tmpTree = NULL;
 }
-
-void printTree(node *tree, int m,int n,t_flags *f,char *path)
+void printTree(node *tree, int m,int n,t_flags *f,struct ft_var *v)
 {
 	char *str;
-	if(!tree) return;
-	if(tree->left)  printTree(tree->left,m,n,f,path);
+	 r_dir *tmp;
+	tmp = v->lst;
+	 if(!tree) return;
+	if(tree->left)  printTree(tree->left,m,n,f,v);
 	if((f->flag_a && (tree->val->nom[0] == '.'))
 			|| (tree->val->nom[0] != '.'))
 	{
 		print(tree->val,m,n,*f);
 		if(S_ISLNK(tree->val->content->st_mode))
 		{
-			str = file_str(path,tree->val->nom);
+			str = file_str(v->path,tree->val->nom);
 			display_link(str);
 			free(str);
 		}
+		if (S_ISDIR(tree->val->content->st_mode) )
+		{
+			str = file_str(v->path,tree->val->nom);
+			ft_putstr(str);
+			addlist(str,&v->lst);
+		}
 		ft_putchar('\n');
-
 	}
-	if(tree->right) printTree(tree->right,m,n,f,path);
+	if(tree->right) printTree(tree->right,m,n,f,v);
 }
 
 void printReverseTree(node *tree,int m,int n,t_flags *f,char *path)
