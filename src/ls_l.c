@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/27 21:40:14 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/28 18:16:59 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -115,7 +115,7 @@ int			lsl(int ac ,char *av,t_flags flag)
 		{
 			str = file_str(buff,dir->d_name);
 			lstat(str,&v.st);
-						v.path = ft_strdup(buff);
+			v.path = ft_strdup(buff);
 			tree = addnode(&tree,dir->d_name,tmp,&v);
 			free(str);
 			str = NULL;
@@ -159,6 +159,7 @@ int			lsl(int ac ,char *av,t_flags flag)
 		while(v.lst)
 		{
 			char *tt = ft_basename(&v.lst->dir);
+			printf("-------------------- %s \n",tt);
 			if(tt[0] != '.')
 			{
 				v.lst->dir = ft_strjoin(v.lst->dir,tt);

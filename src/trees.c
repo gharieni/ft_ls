@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/27 21:39:26 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/01/28 18:29:29 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -20,6 +20,7 @@ void        display_link(char *data)
 	len = readlink(data, buf, sizeof(buf));
 	buf[len] = '\0';
 	ft_putstr(buf);
+	return (void)(buf);
 }
 
 
@@ -109,9 +110,14 @@ void printTree(node *tree, int m,int n,t_flags *f,struct ft_var *v)
 		}
 		if (S_ISDIR(tree->val->content->st_mode) )
 		{
+			str = NULL;
+			char    buf[256];
+			int  len;
 			str = file_str(v->path,tree->val->nom);
-			ft_putstr(str);
-			addlist(str,&v->lst);
+			len = readlink(str, buf, sizeof(str));
+			printf("===================== %s \n",str);
+			addlist(buf,&v->lst);
+			free(str);
 		}
 		ft_putchar('\n');
 	}
