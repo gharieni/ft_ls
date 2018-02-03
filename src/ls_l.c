@@ -71,8 +71,6 @@ char*	file_str(char *s1, const char *s2)
 	else if (ft_strncmp(&s1[i - 2],"/",1))
 		s1 = ft_strjoin(s1,"/");
 	tmp = ft_strjoin(s1,s2);
-	free(s1);
-	s1 = NULL;
 	return(tmp);
 }
 int			lsl(int ac ,char *av,t_flags flag)
@@ -115,13 +113,14 @@ int			lsl(int ac ,char *av,t_flags flag)
 		{
 			str = file_str(buff,dir->d_name);
 			lstat(str,&v.st);
+			v.path = NULL;
 			v.path = ft_strdup(buff);
 			tree = addnode(&tree,dir->d_name,tmp,&v);
 			free(str);
 			str = NULL;
 			}
-	if (!S_ISLNK(v.st.st_mode) )
-		free(v.path);
+//	if (!S_ISLNK(v.st.st_mode) )
+////		free(v.path);
 	}
 	
 		if(ac == -42)
@@ -159,7 +158,6 @@ int			lsl(int ac ,char *av,t_flags flag)
 		while(v.lst)
 		{
 			char *tt = ft_basename(&v.lst->dir);
-			printf("-------------------- %s \n",tt);
 			if(tt[0] != '.')
 			{
 				v.lst->dir = ft_strjoin(v.lst->dir,tt);

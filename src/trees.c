@@ -20,7 +20,6 @@ void        display_link(char *data)
 	len = readlink(data, buf, sizeof(buf));
 	buf[len] = '\0';
 	ft_putstr(buf);
-	return (void)(buf);
 }
 
 
@@ -96,7 +95,8 @@ void printTree(node *tree, int m,int n,t_flags *f,struct ft_var *v)
 	char *str;
 	 r_dir *tmp;
 	tmp = v->lst;
-	 if(!tree) return;
+	str = NULL;
+	if(!tree) return;
 	if(tree->left)  printTree(tree->left,m,n,f,v);
 	if((f->flag_a && (tree->val->nom[0] == '.'))
 			|| (tree->val->nom[0] != '.'))
@@ -106,17 +106,12 @@ void printTree(node *tree, int m,int n,t_flags *f,struct ft_var *v)
 		{
 			str = file_str(v->path,tree->val->nom);
 			display_link(str);
-			free(str);
 		}
 		if (S_ISDIR(tree->val->content->st_mode) )
 		{
 			str = NULL;
-			char    buf[256];
-			int  len;
 			str = file_str(v->path,tree->val->nom);
-			len = readlink(str, buf, sizeof(str));
-			printf("===================== %s \n",str);
-			addlist(buf,&v->lst);
+			addlist(str,&v->lst);
 			free(str);
 		}
 		ft_putchar('\n');
