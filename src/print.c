@@ -33,13 +33,16 @@ void	print(d_list *d_dir, int m,int n,t_flags flags)
 				(S_ISDIR(d_dir->content->st_mode)) ? 'd' : '-');
 		ft_putchar( (d_dir->content->st_mode & S_IRUSR) ? 'r' : '-');
 		ft_putchar( (d_dir->content->st_mode & S_IWUSR) ? 'w' : '-');
-		ft_putchar( (d_dir->content->st_mode & S_IXUSR) ? 'x' : '-');
+		ft_putchar( (d_dir->content->st_mode & S_ISUID) ? 's' :
+		(d_dir->content->st_mode & S_IXUSR) ? 'x' : '-');
 		ft_putchar( (d_dir->content->st_mode & S_IRGRP) ? 'r' : '-');
 		ft_putchar( (d_dir->content->st_mode & S_IWGRP) ? 'w' : '-');
-		ft_putchar( (d_dir->content->st_mode & S_IXGRP) ? 'x' : '-');
+		ft_putchar( (d_dir->content->st_mode & S_ISGID) ? 's' :
+		(d_dir->content->st_mode & S_IXGRP) ? 'x' : '-');
 		ft_putchar( (d_dir->content->st_mode & S_IROTH) ? 'r' : '-');
 		ft_putchar( (d_dir->content->st_mode & S_IWOTH) ? 'w' : '-');
-		ft_putstr( (d_dir->content->st_mode & S_IXOTH) ? "x  " : "-  ");
+		ft_putstr( (d_dir->content->st_mode & S_ISVTX) ? "T" :
+		(d_dir->content->st_mode & S_IXOTH) ? "x  " : "-  ");
 		// NOMBRE DE LIEN >>
 		c = ft_itoa(d_dir->content->st_nlink);
 		while (n-- - ft_strlen(c))

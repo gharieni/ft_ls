@@ -109,31 +109,35 @@ int			lsl(int ac ,char *av,t_flags flag)
 	i = 0;
 	while (pdir && (dir = readdir(pdir)) != NULL)
 	{
-		if(!s || (!strcmp(s, dir->d_name)))
-		{
-			str = file_str(buff,dir->d_name);
-			lstat(str,&v.st);
-			v.path = NULL;
-			v.path = ft_strdup(buff);
-			tree = addnode(&tree,dir->d_name,tmp,&v);
-			free(str);
-			str = NULL;
+		if((v.f.flag_a && (dir->d_name[0] == '.'))
+				|| (dir->d_name[0] != '.'))
+			if(!s || (!strcmp(s, dir->d_name)))
+			{
+				str = file_str(buff,dir->d_name);
+				lstat(str,&v.st);
+				v.path = NULL;
+				v.path = ft_strdup(buff);
+				tree = addnode(&tree,dir->d_name,tmp,&v);
+				free(str);
+				str = NULL;
 			}
-//	if (!S_ISLNK(v.st.st_mode) )
-////		free(v.path);
+		//	if (!S_ISLNK(v.st.st_mode) )
+		////		free(v.path);
 	}
-	
-		if(ac == -42)
+
+	if(ac == -42)
 	{
 		ft_putstr(av);
 		ft_putendl(":");
 	}
-	if(pdir && flag.flag_l == 1)
-	{
-		ft_putstr("total ");
-		ft_putnbr(v.blck);
-		ft_putstr("\n");
-	}
+	if((v.f.flag_a && tree && (tree->val->nom[0] == '.'))
+			|| (tree && tree->val->nom[0] != '.'))
+		if(pdir && flag.flag_l == 1)
+		{
+			ft_putstr("total ");
+			ft_putnbr(v.blck);
+			ft_putstr("\n");
+		}
 	if(flag.flag_r == 1)
 	{
 		printReverseTree(tree,*v.m,v.m[1],&v.f,v.path);
@@ -143,7 +147,7 @@ int			lsl(int ac ,char *av,t_flags flag)
 		v.lst = NULL;
 		printTree(tree,*v.m,v.m[1],&v.f,&v);
 	}
-	
+
 	if(pdir)
 		(void)closedir(pdir);
 	else
@@ -164,12 +168,12 @@ int			lsl(int ac ,char *av,t_flags flag)
 				ft_putchar('\n');
 				lsl(-42,v.lst->dir,flag);
 			}
-				free(tt);
-				tt = NULL;
-				tlst = v.lst;
-				v.lst = v.lst->next;
-				free(tlst->dir);
-				free(tlst);
+			free(tt);
+			tt = NULL;
+			tlst = v.lst;
+			v.lst = v.lst->next;
+			free(tlst->dir);
+			free(tlst);
 		}
 	}
 	//free(buff);
