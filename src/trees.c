@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/28 18:29:29 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/02/17 12:25:06 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -90,7 +90,7 @@ void clearTree(node **tree)
 	free(tmpTree);
 	tmpTree = NULL;
 }
-void printTree(node *tree, int m,int n,t_flags *f,struct ft_var *v)
+void printTree(node *tree, int *m,int n,t_flags *f,struct ft_var *v)
 {
 	char *str;
 	 r_dir *tmp;
@@ -119,7 +119,7 @@ void printTree(node *tree, int m,int n,t_flags *f,struct ft_var *v)
 	if(tree->right) printTree(tree->right,m,n,f,v);
 }
 
-void printReverseTree(node *tree,int m,int n,t_flags *f,char *path)
+void printReverseTree(node *tree,int *m,int n,t_flags *f,char *path)
 {
 	char *str;
 

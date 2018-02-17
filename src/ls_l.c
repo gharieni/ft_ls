@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/28 18:16:59 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/02/17 12:35:16 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -90,6 +90,8 @@ int			lsl(int ac ,char *av,t_flags flag)
 
 	v.m[0] = 0;
 	v.m[1] = 0;
+	v.m[2] = 0;
+	v.m[3] = 0;
 	v.blck = 0;
 	v.f = flag;
 	tree = NULL;
@@ -125,6 +127,8 @@ int			lsl(int ac ,char *av,t_flags flag)
 		////		free(v.path);
 	}
 
+
+	
 	if(ac == -42)
 	{
 		ft_putstr(av);
@@ -140,12 +144,12 @@ int			lsl(int ac ,char *av,t_flags flag)
 		}
 	if(flag.flag_r == 1)
 	{
-		printReverseTree(tree,*v.m,v.m[1],&v.f,v.path);
+		printReverseTree(tree,v.m,v.m[1],&v.f,v.path);
 	}
 	else
 	{
 		v.lst = NULL;
-		printTree(tree,*v.m,v.m[1],&v.f,&v);
+		printTree(tree,v.m,v.m[1],&v.f,&v);
 	}
 
 	if(pdir)

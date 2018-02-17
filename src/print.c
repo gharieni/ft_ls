@@ -6,15 +6,15 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2018/02/16 16:29:48 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/02/17 12:52:21 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-void	print(d_list *d_dir, int m,int n,t_flags flags)
+void	print(d_list *d_dir, int *m,int n,t_flags flags)
 {
-	struct		passwd	*pwd;
 	struct		group		*grp;
+	struct		passwd	*pwd;
 	time_t				*time_tmp;
 	time_t				ttime;
 	char				mtime[25];
@@ -58,9 +58,9 @@ void	print(d_list *d_dir, int m,int n,t_flags flags)
 		// USER  >>
 		if ((pwd = getpwuid(d_dir->content->st_uid)) != NULL)
 			ft_putstr(pwd->pw_name);
-		int k = ft_strlen(pwd->pw_name) + m + 2;
-		//while (k--)
-		//	ft_putchar(' ');
+		n = ft_strlen(pwd->pw_name) ;
+		while (m[2] - n++ )
+			ft_putchar(' ');
 		ft_putstr("  ");
 		// GROUPE >>
 		if ((grp = getgrgid(d_dir->content->st_gid)) != NULL)
@@ -77,10 +77,14 @@ void	print(d_list *d_dir, int m,int n,t_flags flags)
 		}
 		else
 		{
+		while (m[3] && (m[3]--))
+				ft_putchar(' ');
+		ft_putchar(' ');
 		// SIZE >>
 		 c = ft_itoa(d_dir->content->st_size);
-		while (m-- - ft_strlen(c))
-			ft_putchar(' ');
+		n = ft_strlen(c);
+		 while (*m  - n++)
+				ft_putchar(' ');
 		free(c);
 		ft_putnbr(d_dir->content->st_size);
 		}
