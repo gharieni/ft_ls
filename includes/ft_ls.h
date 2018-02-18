@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2018/02/17 12:34:03 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/02/18 16:14:24 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_flags
 struct ft_var
 {
 	struct stat st;
-	int         m[4];
+	int         m[5];
 	int         blck;
 	t_flags         f;
 	char		*path;

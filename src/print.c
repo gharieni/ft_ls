@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2018/02/17 12:52:21 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/02/18 17:31:02 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -23,7 +23,8 @@ void	print(d_list *d_dir, int *m,int n,t_flags flags)
 	int i;
 	int major;
 	int minor;
-		
+	int k;
+
 	if(flags.flag_l == 1)
 	{
 		//mtime = NULL;
@@ -63,27 +64,32 @@ void	print(d_list *d_dir, int *m,int n,t_flags flags)
 			ft_putchar(' ');
 		ft_putstr("  ");
 		// GROUPE >>
+		
 		if ((grp = getgrgid(d_dir->content->st_gid)) != NULL)
 			ft_putstr(grp->gr_name);
+		k = ft_strlen(grp->gr_name) ;
+		while (m[4] - k++)
+			ft_putstr(" ");
 		ft_putstr("  ");
 		if(S_ISCHR(d_dir->content->st_mode) || S_ISBLK(d_dir->content->st_mode))
 		{
 			major = (int)major(d_dir->content->st_rdev);
 			minor = (int)minor(d_dir->content->st_rdev);
+			ft_putchar(' ');
 			ft_putnbr(major);
 			ft_putstr(",   ");
 			ft_putnbr(minor);
-			
 		}
 		else
 		{
-		while (m[3] && (m[3]--))
-				ft_putchar(' ');
-		ft_putchar(' ');
+		if(m[3])
+			ft_putstr("    ");
+		while (m[3] && (m[3]-- ))
+			ft_putchar(' ');
 		// SIZE >>
 		 c = ft_itoa(d_dir->content->st_size);
 		n = ft_strlen(c);
-		 while (*m  - n++)
+		 while ((*m  - n++))
 				ft_putchar(' ');
 		free(c);
 		ft_putnbr(d_dir->content->st_size);

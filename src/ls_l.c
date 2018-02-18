@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/02/17 12:35:16 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/02/18 18:02:35 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -73,6 +73,7 @@ char*	file_str(char *s1, const char *s2)
 	tmp = ft_strjoin(s1,s2);
 	return(tmp);
 }
+
 int			lsl(int ac ,char *av,t_flags flag)
 {
 	struct	dirent	*dir;
@@ -101,14 +102,8 @@ int			lsl(int ac ,char *av,t_flags flag)
 	ft_strcpy(buff,av);
 	lst = NULL;
 	if (!(pdir = opendir(buff)) && i--)
-	{
-		s = ft_basename(&buff);
-	}
-
-	//	if (errno == EACCES) /* Accès interdit */
-	//	//		    puts("Acces interdit");
-
-	i = 0;
+			s = ft_basename(&buff);
+		i = 0;
 	while (pdir && (dir = readdir(pdir)) != NULL)
 	{
 		if((v.f.flag_a && (dir->d_name[0] == '.'))
@@ -127,8 +122,6 @@ int			lsl(int ac ,char *av,t_flags flag)
 		////		free(v.path);
 	}
 
-
-	
 	if(ac == -42)
 	{
 		ft_putstr(av);
@@ -158,6 +151,9 @@ int			lsl(int ac ,char *av,t_flags flag)
 	{
 		ft_putstr("ls: ");
 		ft_putstr(ft_basename(&av));
+		if (errno == EBADF) /* Accès interdit */
+		    ft_putendl(": directory causes a cycle");
+		else 
 		ft_putendl(": Permission denied");
 	}
 	free(s);
