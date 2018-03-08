@@ -20,29 +20,14 @@ t_flags *flag;
 
 flag = malloc(sizeof(t_flags));
 i = ft_arg_parse_flags(flag,argv);
-	if (argc <= 2)
+	if (argc < 2 || i == argc)
 	{
 		argc++;
 		argv[i] = ".";
 	}
 		while(i  < argc)
 	{
-//		if (flag->flag_l)
-		lsl(argc,argv[i],*flag);
-/*	else if (!ft_strcmp(argv[1],"-R"))
-		printf("-R\n");
-	else if (!ft_strcmp(argv[1],"-a"))
-		printf("-a\n");
-	else if (!ft_strcmp(argv[1],"-r"))
-		printf("-r\n");
-	else if (!ft_strcmp(argv[1],"-t"))
-		printf("-t\n");
-	else if (argc == 1 || !(ft_strcmp(argv[1],".")))
-		printf(".\n");
-	else if (!ft_strcmp(argv[1],"-1"))
-		printf("-1\n");
-	else 
-		printf("error ... ! \n");*/
+		lsl(argc,argv[i],*flag,NULL);
 	i++;
 	}
 	return (0);

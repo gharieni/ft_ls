@@ -68,7 +68,8 @@ void	print(d_list *d_dir, int *m,int n,t_flags flags)
 		if ((grp = getgrgid(d_dir->content->st_gid)) != NULL)
 			ft_putstr(grp->gr_name);
 		k = ft_strlen(grp->gr_name) ;
-		while (m[4] - k++)
+		// ***********        a bien verifier >> >> >> >> ...
+		//while (m[3] && m[3] - k++)
 			ft_putstr(" ");
 		ft_putstr("  ");
 		if(S_ISCHR(d_dir->content->st_mode) || S_ISBLK(d_dir->content->st_mode))

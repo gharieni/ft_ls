@@ -41,7 +41,7 @@ char*	ft_basename(char** str)
 	buff = *str;
 	s = NULL;
 	old = NULL;
-	while(strchr(buff,'/') && (buff = strchr(buff,'/')) )
+	while(ft_strchr(buff,'/') && (buff = ft_strchr(buff,'/')) )
 		old = ++buff;
 	if (old)
 	{
@@ -74,54 +74,19 @@ char*	file_str(char *s1, const char *s2)
 	return(tmp);
 }
 
-int			lsl(int ac ,char *av,t_flags flag)
+int			lsl(int ac ,char *av,t_flags flag,r_dir *lst)
 {
-	struct	dirent	*dir;
 	struct ft_var	v;
 	DIR				*pdir;
 	char			*buff;
-	char			*str;
-	char			*s;
-	int				i = 2;
 	d_list			*l_dir;
-	d_list			*tmp;
 	node			*tree;
-	r_dir			*lst;
-	r_dir			*tlst;
 
-	v.m[0] = 0;
-	v.m[1] = 0;
-	v.m[2] = 0;
-	v.m[3] = 0;
-	v.blck = 0;
+	v.m[0] = v.m[1] = v.m[2] = v.m[3] = v.blck = 0;
 	v.f = flag;
-	tree = NULL;
-	tmp = NULL;
-	s = NULL;
-	buff = ft_strnew(255);
-	ft_strcpy(buff,av);
-	lst = NULL;
-	if (!(pdir = opendir(buff)) && i--)
-			s = ft_basename(&buff);
-		i = 0;
-	while (pdir && (dir = readdir(pdir)) != NULL)
-	{
-		if((v.f.flag_a && (dir->d_name[0] == '.'))
-				|| (dir->d_name[0] != '.'))
-			if(!s || (!strcmp(s, dir->d_name)))
-			{
-				str = file_str(buff,dir->d_name);
-				lstat(str,&v.st);
-				v.path = NULL;
-				v.path = ft_strdup(buff);
-				tree = addnode(&tree,dir->d_name,tmp,&v);
-				free(str);
-				str = NULL;
-			}
-		//	if (!S_ISLNK(v.st.st_mode) )
-		////		free(v.path);
-	}
-
+	buff = ft_strdup(av);
+	pdir = opendir(buff);
+	tree = parcour(pdir, &v, buff, tree);
 	if(ac == -42)
 	{
 		ft_putstr(av);
@@ -135,47 +100,12 @@ int			lsl(int ac ,char *av,t_flags flag)
 			ft_putnbr(v.blck);
 			ft_putstr("\n");
 		}
-	if(flag.flag_r == 1)
-	{
-		printReverseTree(tree,v.m,v.m[1],&v.f,v.path);
-	}
+	if((1 + (v.lst = NULL)) && flag.flag_r == 1)
+		printReverseTree(tree,v.m,v.m[1],&v.f,&v);
 	else
-	{
-		v.lst = NULL;
 		printTree(tree,v.m,v.m[1],&v.f,&v);
-	}
-
-	if(pdir)
-		(void)closedir(pdir);
-	else
-	{
-		ft_putstr("ls: ");
-		ft_putstr(ft_basename(&av));
-		if (errno == EBADF) /* Accès interdit */
-		    ft_putendl(": directory causes a cycle");
-		else 
-		ft_putendl(": Permission denied");
-	}
-	free(s);
-	if(flag.flag_R == 1 && v.lst)
-	{
-		while(v.lst)
-		{
-			char *tt = ft_basename(&v.lst->dir);
-			if(tt[0] != '.')
-			{
-				v.lst->dir = ft_strjoin(v.lst->dir,tt);
-				ft_putchar('\n');
-				lsl(-42,v.lst->dir,flag);
-			}
-			free(tt);
-			tt = NULL;
-			tlst = v.lst;
-			v.lst = v.lst->next;
-			free(tlst->dir);
-			free(tlst);
-		}
-	}
+	error_msg(errno,pdir,av);
+	recursive(v,flag);
 	//free(buff);
 	//buff = NULL;
 	//clearTree(&tree);

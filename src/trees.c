@@ -93,8 +93,8 @@ void clearTree(node **tree)
 void printTree(node *tree, int *m,int n,t_flags *f,struct ft_var *v)
 {
 	char *str;
-	 r_dir *tmp;
-	tmp = v->lst;
+	//	 r_dir *tmp;
+	//	tmp = v->lst;
 	str = NULL;
 	if(!tree) return;
 	if(tree->left)  printTree(tree->left,m,n,f,v);
@@ -119,24 +119,31 @@ void printTree(node *tree, int *m,int n,t_flags *f,struct ft_var *v)
 	if(tree->right) printTree(tree->right,m,n,f,v);
 }
 
-void printReverseTree(node *tree,int *m,int n,t_flags *f,char *path)
+void printReverseTree(node *tree,int *m,int n,t_flags *f,struct ft_var *v)
 {
 	char *str;
 
+	str = NULL;
 	if(!tree) return;
-	if(tree->right) printReverseTree(tree->right,m,n,f,path);
+	if(tree->right) printReverseTree(tree->right,m,n,f,v);
 	if((f->flag_a && (tree->val->nom[0] == '.'))
 			|| (tree->val->nom[0] != '.'))
 	{
 		print(tree->val,m,n,*f);
 		if(S_ISLNK(tree->val->content->st_mode))
 		{
-			str = file_str(path,tree->val->nom);
+			str = file_str(v->path,tree->val->nom);
 			display_link(str);
 		}
+		if (S_ISDIR(tree->val->content->st_mode) )
+		{
+			str = NULL;
+			str = file_str(v->path,tree->val->nom);
+				addlist(str,&v->lst);
+			free(str);
+		}
 		ft_putchar('\n');
-
 	}
-	if(tree->left)  printReverseTree(tree->left,m,n,f,path);
+	if(tree->left)  printReverseTree(tree->left,m,n,f,v);
 }
 
