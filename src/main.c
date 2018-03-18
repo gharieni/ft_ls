@@ -11,24 +11,50 @@
 /* ************************************************************************** */
 #include "ft_ls.h"
 
+void tri_av(char **argv,int argc,int i)
+{
+	char* temp;
+	int j;
+	
+	while(i < argc - 1) 
+	{ 
+		j = i + 1;
+		while(j < argc)
+		{
+			if(ft_strcmp(argv[i], argv[j]) > 0) 
+			{
+				temp = argv[ i ];
+				argv[i] = argv[ j ];
+				argv[j] = temp; 
+			} 
+			j++;
+		}
+		i++;
+	}
+}
+
 int main(int argc, char *argv[])
 {
-int i;
+	int i;
+	int c;
+	int k;
+	t_flags *flag;
 
-t_flags *flag;
-
-
-flag = malloc(sizeof(t_flags));
-i = ft_arg_parse_flags(flag,argv);
-	if (argc < 2 || i == argc)
-	{
-		argc++;
+	flag = malloc(sizeof(t_flags));
+	i = ft_arg_parse_flags(flag,argv);
+	tri_av(argv,argc,i);
+	k = 0;
+if ((argc < 2 || i == argc) && argc++)
 		argv[i] = ".";
-	}
-		while(i  < argc)
+	c = argc - i - 1;
+	while(i  < argc)
 	{
+		if(k)
+			ft_putchar('\n');
+		//if(c)
 		lsl(argc,argv[i],*flag,NULL);
-	i++;
+		i++;
+		k = 1;
 	}
 	return (0);
 }

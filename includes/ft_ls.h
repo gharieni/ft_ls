@@ -57,7 +57,7 @@ typedef struct s_flags
 struct ft_var
 {
 	struct stat st;
-	int         m[5];
+	int         m[7];
 	int         blck;
 	t_flags         f;
 	char		*path;

@@ -56,6 +56,7 @@ node *addnode(node **tree ,char *str, d_list *l,struct ft_var *var)
 	elem->val = lst_add(str,&l,&var->st,var);
 	elem->left = NULL;
 	elem->right = NULL;
+	
 
 	if(tmpTree)
 		do

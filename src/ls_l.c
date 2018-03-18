@@ -82,7 +82,8 @@ int			lsl(int ac ,char *av,t_flags flag,r_dir *lst)
 	d_list			*l_dir;
 	node			*tree;
 
-	v.m[0] = v.m[1] = v.m[2] = v.m[3] = v.blck = 0;
+	v.m[0] = v.m[1] = v.m[2] = v.m[3] = v.m[4] =  v.m[5] =
+	v.m[6] = v.blck = 0;
 	v.f = flag;
 	buff = ft_strdup(av);
 	pdir = opendir(buff);
