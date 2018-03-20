@@ -47,17 +47,14 @@ int cmpar(void *f1 ,void *f2,t_flags f)
 
 node *addnode(node **tree ,char *str, d_list *l,struct ft_var *var)
 {
-
 	node *tmpNode;
 	node *tmpTree;
 	tmpTree = *tree;
+	
 	node *elem = malloc(sizeof(node));
-
 	elem->val = lst_add(str,&l,&var->st,var);
 	elem->left = NULL;
 	elem->right = NULL;
-	
-
 	if(tmpTree)
 		do
 		{
@@ -147,4 +144,3 @@ void printReverseTree(node *tree,int *m,int n,t_flags *f,struct ft_var *v)
 	}
 	if(tree->left)  printReverseTree(tree->left,m,n,f,v);
 }
-

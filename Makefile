@@ -11,4 +11,4 @@
 # **************************************************************************** #
 
 ft_ls: src/main.c src/ls_l.c includes/libft/*.c
-	gcc -g -o ls src/*.c includes/libft/*.c -I 'includes/'
+	c99  -g -o ls src/*.c includes/libft/*.c -I 'includes/'
