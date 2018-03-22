@@ -1,13 +1,11 @@
 #include "ft_ls.h"
 
-node* parcour(DIR *pdir, struct ft_var *v,char *buf,node *t)
+node* parcour(DIR *pdir, struct ft_var *v,char *buf,node *t,char *s)
 {
 	d_list			*tmp;
 	char			*str;
-	char			*s;
 	struct	dirent	*dir;
 
-	s = NULL;
 	tmp = NULL;
 	t = NULL;
 	while (pdir && (dir = readdir(pdir)) != NULL)
@@ -18,18 +16,20 @@ node* parcour(DIR *pdir, struct ft_var *v,char *buf,node *t)
 				lstat(str,&v->st);
 				v->path = NULL;
 				v->path = ft_strdup(buf);
-				t = addnode(&t,dir->d_name,tmp,v);
+				if(s)
+					t = addnode(&t,str,tmp,v);
+				else
+					t = addnode(&t,dir->d_name,tmp,v);
 				free(str);
 				str = NULL;
 			}
-//	if (!S_ISLNK(v.st.st_mode) )>>>>> inside while
+	//	if (!S_ISLNK(v.st.st_mode) )>>>>> inside while
 	////		free(v.path);>>>>>>>inside while
-free (s);
-return t;
+//	free (s);
+	return t;
 }
 
-
-void error_msg(int er , DIR *pdir ,char* av )
+int error_msg(int er , DIR *pdir ,char* av)
 {
 	if(pdir)
 		(void)closedir(pdir);
@@ -42,13 +42,13 @@ void error_msg(int er , DIR *pdir ,char* av )
 		else 
 			ft_putendl(": Permission denied");
 	}
-
+	return 0;
 }
 
 void recursive (struct ft_var v, t_flags flag)
 {
 	r_dir			*tlst;
-	
+
 	if(flag.flag_R == 1 && v.lst)
 	{
 		while(v.lst)

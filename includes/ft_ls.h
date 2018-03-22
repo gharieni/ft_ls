@@ -72,7 +72,7 @@ typedef struct tnode
 }					node;
 
 
-node* parcour(DIR *pdir, struct ft_var *v, char *buff,node *tree);
+node* parcour(DIR *pdir, struct ft_var *v, char *buff,node *tree,char *s);
 
 char* ft_basename(char** str);
 void addlist(char *str,r_dir **lst);
@@ -83,7 +83,7 @@ int max(d_list *l, int *blk,int a,int *n);
 void print(d_list *dir, int *m,int n,t_flags f);
 
 void recursive (struct ft_var v, t_flags flag);
-void error_msg(int er, DIR *pdir, char* av);
+int error_msg(int er, DIR *pdir, char* av);
 void printReverseTree(node *tree, int *m,int n,t_flags *f, struct ft_var *v);
 void printTree(node *tree, int *m,int n,t_flags *f,struct ft_var *var);
 d_list	*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *var);

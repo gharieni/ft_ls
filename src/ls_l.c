@@ -81,13 +81,16 @@ int			lsl(int ac ,char *av,t_flags flag,r_dir *lst)
 	char			*buff;
 	d_list			*l_dir;
 	node			*tree;
-
+	char			*s;
+	
 	v.m[0] = v.m[1] = v.m[2] = v.m[3] = v.m[4] =  v.m[5] =
 	v.m[6] = v.blck = 0;
 	v.f = flag;
+	s = NULL;
 	buff = ft_strdup(av);
-	pdir = opendir(buff);
-	tree = parcour(pdir, &v, buff, tree);
+	        while (!(pdir = opendir(buff)) && (errno == ENOTDIR))
+				s = ft_basename(&buff);
+	tree = parcour(pdir, &v, buff, tree,s);
 	if(ac == -42)
 	{
 		ft_putstr(av);
@@ -95,7 +98,7 @@ int			lsl(int ac ,char *av,t_flags flag,r_dir *lst)
 	}
 	if((v.f.flag_a && tree && (tree->val->nom[0] == '.'))
 			|| (tree && tree->val->nom[0] != '.'))
-		if(pdir && flag.flag_l == 1)
+		if(!s && pdir && flag.flag_l == 1)
 		{
 			ft_putstr("total ");
 			ft_putnbr(v.blck);

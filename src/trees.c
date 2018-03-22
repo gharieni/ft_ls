@@ -93,6 +93,7 @@ void printTree(node *tree, int *m,int n,t_flags *f,struct ft_var *v)
 	char *str;
 	//	 r_dir *tmp;
 	//	tmp = v->lst;
+	
 	str = NULL;
 	if(!tree) return;
 	if(tree->left)  printTree(tree->left,m,n,f,v);
