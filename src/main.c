@@ -22,10 +22,10 @@ int tri_av(char **argv,int argc,int i)
 		j = i + 1;
 		while(j < argc)
 		{
-	        if ((((opendir(argv[i]) != opendir(argv[j]))
-	&& !opendir(argv[i])) && (ft_strcmp(argv[i], argv[j]) < 0)) ||
-	    (!opendir(argv[i]) && !opendir(argv[j])  && (ft_strcmp(argv[i], argv[j]) > 0)) ||
-	(((ft_strcmp(argv[i], argv[j]) < 0)) && (!opendir(argv[i]) || !opendir(argv[j]))))
+			if (((!opendir(argv[i])) && (ft_strcmp(argv[i], argv[j]) < 0)) ||
+					(!opendir(argv[i]) && !opendir(argv[j])  && (ft_strcmp(
+					argv[i], argv[j]))) || (((ft_strcmp(argv[i], argv[j])
+					< 0)) && (!opendir(argv[i]) || !opendir(argv[j]))))
 			{
 				temp = argv[ i ];
 				argv[i] = argv[ j ];
@@ -35,7 +35,7 @@ int tri_av(char **argv,int argc,int i)
 		}
 		i++;
 	}
-return (temp != NULL);
+	return (temp != NULL);
 }
 
 int main(int argc, char *argv[])
@@ -51,14 +51,14 @@ int main(int argc, char *argv[])
 	t = tri_av(argv,argc,i);
 	t = tri_av(argv,argc,i);
 	k = 1;
-if ((argc < 2 || i == argc) && argc++)
+	if ((argc < 2 || i == argc) && argc++)
 		argv[i] = ".";
 	c = argc - i - 1;
 	while(i  < argc)
 	{
-	opendir(argv[i]);
-	if(errno == ENOTDIR )
-	k = 42;
+		opendir(argv[i]);
+		if(errno == ENOTDIR )
+			k = 42;
 		if(!k)
 			ft_putchar('\n');
 		//if(c)
