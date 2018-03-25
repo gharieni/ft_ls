@@ -35,7 +35,7 @@ void max_suite(d_list *l,d_list *d_dir, int *d)
 			d[4] = ft_strlen(grp->gr_name);
 	if ((pwd = getpwuid(d_dir->content->st_uid)) != NULL)
 		if(ft_strlen(pwd->pw_name) > d[5])
-			d[5] = strlen(pwd->pw_name);
+			d[5] = ft_strlen(pwd->pw_name);
 	if(S_ISCHR(d_dir->content->st_mode) || S_ISBLK(d_dir->content->st_mode))
 	{
 		if(d[1] < (ft_strlen(ft_itoa(major))))
@@ -77,7 +77,6 @@ d_list			*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *v
 {
 	d_list *new;
 	d_list *tmp;
-	char *s;
 
 	tmp = *lst;
 	if(st && str)

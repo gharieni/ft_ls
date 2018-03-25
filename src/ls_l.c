@@ -9,7 +9,7 @@
 /*   Updated: 2018/02/18 18:02:35 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_ls.h"
+#include "../includes/ft_ls.h"
 
 void addlist(char *str,r_dir **lst)
 {
@@ -79,8 +79,7 @@ int			lsl(int ac ,char *av,t_flags flag,r_dir *lst)
 	struct ft_var	v;
 	DIR				*pdir;
 	char			*buff;
-	d_list			*l_dir;
-	node			*tree;
+	node			*tree = NULL;
 	char			*s;
 	
 	v.m[0] = v.m[1] = v.m[2] = v.m[3] = v.m[4] =  v.m[5] =
@@ -100,6 +99,10 @@ int			lsl(int ac ,char *av,t_flags flag,r_dir *lst)
 			|| (tree && tree->val->nom[0] != '.'))
 		if(!s && pdir && flag.flag_l == 1)
 		{
+		
+		ft_putstr("\n");
+		ft_putstr(av);
+		ft_putendl(":");
 			ft_putstr("total ");
 			ft_putnbr(v.blck);
 			ft_putstr("\n");

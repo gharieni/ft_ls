@@ -25,7 +25,7 @@
 #include <grp.h>
 #include <time.h>
 #include <langinfo.h>
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 #define error 0
 #define succes 1

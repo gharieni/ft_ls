@@ -96,9 +96,9 @@ void	print(d_list *d_dir, int *m,int n,t_flags flags)
 	time_t				ttime;
 	char				mtime[25];
 	char				*dat;
-	int k;
 
-	if(flags.flag_l == 1)
+	if(((flags.flag_a  && (d_dir->nom[0] == '.'))
+			|| (d_dir->nom[0] != '.')) && flags.flag_l == 1)
 	{
 		print_suite(d_dir,n,0);
 		print_user(d_dir,n,0,m);
