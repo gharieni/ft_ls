@@ -87,6 +87,7 @@ int error_msg(int er, DIR *pdir, char* av);
 void printReverseTree(node *tree, int *m,int n,t_flags *f, struct ft_var *v);
 void printTree(node *tree, int *m,int n,t_flags *f,struct ft_var *var);
 d_list	*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *var);
+int cmpar(void *f1, void *f2, t_flags *f);
 node	*addnode(node **tree,char *str ,d_list *l,struct ft_var *var);
 
 typedef struct	s_elem

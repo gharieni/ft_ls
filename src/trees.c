@@ -24,23 +24,35 @@ void        display_link(char *data)
 
 
 
-int cmpar(void *f1 ,void *f2,t_flags f)
+int cmpar(void *f1 ,void *f2,t_flags *f)
 {
 	int k;
-
+	
 	k = 0;
-	if(f.flag_t == 1)
+	if(f->flag_t == 1)
 	{
+	printf("stmtime = %ld \n",((d_list*)f1)->content->st_mtime );
+	printf("stmtime = %ld \n ",((d_list*)f2)->content->st_mtime );
+	printf("return acces right \n");
 		if(((d_list*)f1)->content->st_mtime > ((d_list*)f2)->content->st_mtime)
-			return 0;
+			{
+	printf("return exit 0 -r \n");
+			return 0;}
 		if(((d_list*)f1)->content->st_mtime < ((d_list*)f2)->content->st_mtime)
+			{
+	printf("return succes \n");
 			return 1;
+			}
 	}
 	if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
+		{
+	printf("return exit - l \n");
 		return 1;
-	else if (f.flag_l != 1)
+		}
+	else if (f->flag_l != 1)
 		if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
 			return 1;
+	printf("return exit \n");
 	return 0;
 }
 
@@ -59,7 +71,7 @@ node *addnode(node **tree ,char *str, d_list *l,struct ft_var *var)
 		do
 		{
 			tmpNode = tmpTree;
-			if (cmpar((void*)l ,(void*)tmpTree->val,var->f))
+			if (cmpar((void*)l ,(void*)tmpTree->val,&var->f))
 			{
 				tmpTree = tmpTree->right;
 				if(!tmpTree) 

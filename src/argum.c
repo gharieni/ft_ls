@@ -57,6 +57,9 @@ int   ft_arg_parse_flags(t_flags *flags, char **argv)
 				flags->flag_a = 1;
 			if (argv[i][j] == 'r')
 				flags->flag_r = 1;
+			else
+				flags->flag_r = 0;
+			
 			if (argv[i][j] == 't')
 				flags->flag_t = 1;
 			j++;
