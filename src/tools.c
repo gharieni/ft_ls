@@ -14,7 +14,6 @@ node* parcour(DIR *pdir, struct ft_var *v,char *buf,node *t,char *s)
 			{
 				str = file_str(buf,dir->d_name);
 		lstat(str,&v->st);
-		  printf("stmtime parcour d  = %ld \n",v->st.st_mtime );
 				v->path = NULL;
 				v->path = ft_strdup(buf);
 				if(s)

@@ -31,28 +31,16 @@ int cmpar(void *f1 ,void *f2,t_flags *f)
 	k = 0;
 	if(f->flag_t == 1)
 	{
-	printf("stmtime = %ld \n",((d_list*)f1)->content->st_mtime );
-	printf("stmtime = %ld \n ",((d_list*)f2)->content->st_mtime );
-	printf("return acces right \n");
 		if(((d_list*)f1)->content->st_mtime > ((d_list*)f2)->content->st_mtime)
-			{
-	printf("return exit 0 -r \n");
-			return 0;}
+			return 0;
 		if(((d_list*)f1)->content->st_mtime < ((d_list*)f2)->content->st_mtime)
-			{
-	printf("return succes \n");
 			return 1;
-			}
 	}
 	if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
-		{
-	printf("return exit - l \n");
 		return 1;
-		}
 	else if (f->flag_l != 1)
 		if(ft_strcmp(((d_list*)f1)->nom,((d_list*)f2)->nom) > 0)
 			return 1;
-	printf("return exit \n");
 	return 0;
 }
 
@@ -113,7 +101,7 @@ void printTree(node *tree, int *m,int n,t_flags *f,struct ft_var *v)
 			|| (tree->val->nom[0] != '.'))
 	{
 		print(tree->val,m,n,*f);
-		if(S_ISLNK(tree->val->content->st_mode))
+		if(f->flag_l && S_ISLNK(tree->val->content->st_mode))
 		{
 			str = file_str(v->path,tree->val->nom);
 			display_link(str);

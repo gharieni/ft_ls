@@ -12,57 +12,56 @@
 #include "ft_ls.h"
 d_list			*l_add(char *str)
 {
-	struct stat st;
 	d_list *new;
-	
+
 	new = NULL;
-	stat(str,&st);
-		new = (d_list*)malloc(sizeof(d_list));
-		new->nom = ft_strdup(str);
-		new->content = (struct stat*)malloc(sizeof(struct stat));
-//	if (st)
-//	printf("test stat\n");
-		new->content = &st;
-		new->next = NULL;
-return new;
+	new = (d_list*)malloc(sizeof(d_list));
+	new->nom = ft_strdup(str);
+	new->content = (struct stat*)malloc(sizeof(struct stat));
+	stat(str,new->content);
+	new->next = NULL;
+	return new;
 }
-
-
-
 
 int tri_av(char **argv,int argc,int i,t_flags *f)
 {
 	char* temp;
 	int j;
+	int si;
 	d_list *d;
 	d_list *p;
 
+	si = i;
 	p = NULL;
 	d = NULL;
+	int t = 1;
 	temp = NULL;
-	while(i < argc - 1) 
-	{ 
-		j = i + 1;
-		while(j < argc)
+	while (t)
+	{
+		t = 0;
+		//	while(!opendir(argv[si]))
+		//		si++;
+		i = si;
+		while(i < argc - 1) 
 		{
-	d = l_add(argv[i]);
-	p = l_add(argv[j]);
-
-	printf("stmtime d  = %ld \n",d->content->st_mtime );
-	ft_putstr("stmtime p size  =  ");
-	ft_putnbr(p->content->st_size );
-	ft_putstr("\n");
-if (((!opendir(argv[i]) && !opendir(argv[j])  && cmpar(d,p,f))) ||
-			(((cmpar(d, p,f) > 0)) && (!opendir(argv[i]) || !opendir(argv[j]))))
+			j = i + 1;
+			while(j < argc)
 			{
-		printf("welcome \n");
-				temp = argv[ i ];
-				argv[i] = argv[ j ];
-				argv[j] = temp;
+				d = l_add(argv[i]);
+				p = l_add(argv[j]);
+				if (((!opendir(argv[i]) && !opendir(argv[j])  && cmpar(d,p,f)))
+						|| (opendir(argv[i]) && !opendir(argv[j])) ||
+						(cmpar(d, p,f) && (opendir(argv[i]) && opendir(argv[j]))))
+				{
+					temp = argv[ i ];
+					argv[i] = argv[ j ];
+					argv[j] = temp;
+					t = 1;
+				}
+				j++;
 			}
-			j++;
+			i++;
 		}
-		i++;
 	}
 	return (temp != NULL);
 }
