@@ -22,7 +22,7 @@ void ft_minmaj(d_list *d_dir, int *m, int minor, int major, int k)
 		while(m[5] + 1 - k++)
 			ft_putchar(' ');
 		ft_putnbr(major);
-		ft_putstr(",  ");
+		ft_putstr(",   ");
 		k = ft_strlen(ft_itoa(minor));
 		while(m[6]  - k ++)
 			ft_putchar(' ');

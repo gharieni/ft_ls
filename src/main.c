@@ -39,8 +39,6 @@ int tri_av(char **argv,int argc,int i,t_flags *f)
 	while (t)
 	{
 		t = 0;
-		//	while(!opendir(argv[si]))
-		//		si++;
 		i = si;
 		while(i < argc - 1) 
 		{
@@ -65,6 +63,39 @@ int tri_av(char **argv,int argc,int i,t_flags *f)
 	}
 	return (temp != NULL);
 }
+void rev_av(t_flags *f,char **av,int ac,int i)
+{
+	int j;
+	char *tmp;
+	int k;
+	if (!f->flag_r)
+		return;
+	j = i - 1 ;
+	while(!opendir(av[j + 1]))
+		j++;
+	k = j;
+	while (i <= k)
+	{
+		tmp = av[i];
+		av[i] = av[k];
+		av[k] = tmp;
+		i++;
+		k--;
+	}
+	i = j + 1;
+	while(opendir(av[j + 1]))
+		j++;
+	k = j;
+		while (i <= k)
+	{
+		tmp = av[i];
+		av[i] = av[k];
+		av[k] = tmp;
+		i++;
+		k--;
+	}
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -77,6 +108,7 @@ int main(int argc, char *argv[])
 	flag = malloc(sizeof(t_flags));
 	i = ft_arg_parse_flags(flag,argv);
 	t = tri_av(argv,argc,i,flag);
+	rev_av(flag,argv,argc,i);
 	k = 1;
 	if ((argc < 2 || i == argc) && argc++)
 		argv[i] = ".";
