@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2018/02/18 17:31:02 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/10 03:03:50 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -32,7 +32,7 @@ void ft_minmaj(d_list *d_dir, int *m, int minor, int major, int k)
 	{
 		if(m[3] - 1)
 			if(((k = m[5] + 1) &&  m[4] && (k = k + 3)) || 1)
-				while (m[4]  && (k-- ))
+				while (m[4]  && (k-- + 1 ))
 					ft_putchar(' ');
 		/* SIZE >>*/ k = ft_strlen(ft_itoa(d_dir->content->st_size)) ;
 		while ((m[0] + m[6]  - 1  - k++))
@@ -44,6 +44,8 @@ void ft_minmaj(d_list *d_dir, int *m, int minor, int major, int k)
 void print_suite(d_list *d_dir, int n, int k)
 {
 	ft_putchar( (S_ISCHR(d_dir->content->st_mode)) ? 'c' :
+			(S_ISFIFO(d_dir->content->st_mode)) ? 'p' :
+			(S_ISSOCK(d_dir->content->st_mode)) ? 's' :
 			(S_ISBLK(d_dir->content->st_mode)) ? 'b' :
 			(S_ISLNK(d_dir->content->st_mode)) ? 'l' : 
 			(S_ISDIR(d_dir->content->st_mode)) ? 'd' : '-');

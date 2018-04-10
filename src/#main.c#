@@ -97,7 +97,7 @@ void rev_av(t_flags *f,char **av,int ac,int i)
 }
 
 
-int main(int argc, char *argv[])
+int main(int avrgc, char *argv[])
 {
 	int i;
 	int c;
@@ -126,3 +126,9 @@ int main(int argc, char *argv[])
 	}
 	return (0);
 }
+
+
+
+scincdcnsdokcvdv
+cmc;
+c,;dm

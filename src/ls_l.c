@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/02/18 18:02:35 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/09 21:50:12 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/ft_ls.h"
@@ -100,9 +100,9 @@ int			lsl(int ac ,char *av,t_flags flag,r_dir *lst)
 		if(!s && pdir && flag.flag_l == 1)
 		{
 		
-		ft_putstr("\n");
-		ft_putstr(av);
-		ft_putendl(":");
+	//	ft_putstr("\n");
+	//	ft_putstr(av);
+	//	ft_putendl(":");
 			ft_putstr("total ");
 			ft_putnbr(v.blck);
 			ft_putstr("\n");

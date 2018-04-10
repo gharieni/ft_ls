@@ -31,13 +31,18 @@ node* parcour(DIR *pdir, struct ft_var *v,char *buf,node *t,char *s)
 
 int error_msg(int er , DIR *pdir ,char* av)
 {
+
 	if(pdir)
 		(void)closedir(pdir);
 	else
 	{
 		ft_putstr("ls: ");
-		ft_putstr(ft_basename(&av));
+		ft_putstr(av);
 		if (er == EBADF) /* Accès interdit */
+			ft_putendl(": Bad file descriptor");
+		else if (er == ENOENT) /* Accès interdit */
+			ft_putendl(": No such file or directory");
+		else if (er == EMFILE) /* Accès interdit */
 			ft_putendl(": directory causes a cycle");
 		else 
 			ft_putendl(": Permission denied");
