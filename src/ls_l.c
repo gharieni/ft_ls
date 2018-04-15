@@ -15,7 +15,7 @@ void addlist(char *str,r_dir **lst)
 {
 	r_dir *tmp;
 	r_dir *ls;
-
+	
 	tmp = *lst;
 	ls = malloc(sizeof(r_dir));
 	while(tmp && tmp->next)
@@ -81,16 +81,17 @@ int			lsl(int ac ,char *av,t_flags flag,r_dir *lst)
 	char			*buff;
 	node			*tree = NULL;
 	char			*s;
-	
+	int i = 3;	
 	v.m[0] = v.m[1] = v.m[2] = v.m[3] = v.m[4] =  v.m[5] =
 	v.m[6] = v.blck = 0;
 	v.f = flag;
 	s = NULL;
 	buff = ft_strdup(av);
-	        while (!(pdir = opendir(buff)) && (errno == ENOTDIR))
+	        while (!(pdir = opendir(buff)) && (errno == ENOTDIR) && i--)
 				s = ft_basename(&buff);
 	tree = parcour(pdir, &v, buff, tree,s);
-	if(ac == -42)
+	//printf("%d ------------\n", ac);
+	if(ac == 42)
 	{
 		ft_putstr(av);
 		ft_putendl(":");
@@ -100,18 +101,20 @@ int			lsl(int ac ,char *av,t_flags flag,r_dir *lst)
 		if(!s && pdir && flag.flag_l == 1)
 		{
 		
-	//	ft_putstr("\n");
-	//	ft_putstr(av);
-	//	ft_putendl(":");
 			ft_putstr("total ");
 			ft_putnbr(v.blck);
 			ft_putstr("\n");
 		}
-	if((1 + (v.lst = NULL)) && flag.flag_r == 1)
+if (errno != ENOTDIR)
+if((1 + (v.lst = NULL)) && flag.flag_r == 1)
 		printReverseTree(tree,v.m,v.m[1],&v.f,&v);
 	else
-		printTree(tree,v.m,v.m[1],&v.f,&v);
-	error_msg(errno,pdir,av);
+			printTree(tree,v.m,v.m[1],&v.f,&v);
+else
+			error_msg(errno,NULL,av);
+	
+		error_msg(errno,pdir,av);
+if(errno != ENOTDIR)
 	recursive(v,flag);
 	//free(buff);
 	//buff = NULL;
