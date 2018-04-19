@@ -68,7 +68,7 @@ void rev_av(t_flags *f,char **av,int ac,int i)
 	int j;
 	char *tmp;
 	int k;
-	if (!f->flag_r)
+	if (ac && !f->flag_r)
 		return;
 	j = i - 1 ;
 	while(av[j + 1] && !opendir(av[j + 1]))
@@ -100,11 +100,12 @@ void rev_av(t_flags *f,char **av,int ac,int i)
 int main(int argc, char *argv[])
 {
 	int i;
+	DIR				*pdir;
 	int c;
 	int k;
 	t_flags *flag;
 	int t;
-
+	
 	flag = malloc(sizeof(t_flags));
 	i = ft_arg_parse_flags(flag,argv);
 	t = tri_av(argv,argc,i,flag);
@@ -113,16 +114,21 @@ int main(int argc, char *argv[])
 	if ((argc < 2 || i == argc) && argc++)
 		argv[i] = ".";
 	c = argc - i - 1;
+	t = 5;
 	while(i  < argc)
 	{
-		opendir(argv[i]);
-		if(errno == ENOTDIR )
+	k = 5;
+		if(!(pdir  = opendir(argv[i])))
 			k = 42;
-		if(!k)
+		if(pdir && t == 0)
+			{
 			ft_putchar('\n');
-		lsl(-42 + k - t,argv[i],*flag,NULL);
+			}
+		lsl(-43 + k + t,argv[i],*flag,NULL);
 		i++;
 		t = 0;
+	if(pdir)
+	(void)closedir(pdir);
 	}
 	return (0);
 }
