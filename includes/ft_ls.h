@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2018/02/18 16:14:24 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/22 00:35:51 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ typedef struct tnode
 }					node;
 
 
-node* parcour(DIR *pdir, struct ft_var *v, char *buff,node *tree,char *s);
+node* parcour(DIR *pdir, struct ft_var *v, char *buff,char *s);
 
 char* ft_basename(char** str);
 void addlist(char *str,r_dir **lst);
-void clearTree(node **tree);
+void cleartree(node **tree);
 char*	file_str(char *s1, const char *s2);
 int ft_arg_parse_flags(t_flags *flags,char **av);
 int max(d_list *l, int *blk,int a,int *n);
@@ -84,11 +84,12 @@ void print(d_list *dir, int *m,int n,t_flags f);
 
 void recursive (struct ft_var v, t_flags flag);
 int error_msg(int er, DIR *pdir, char* av);
-void printReverseTree(node *tree, int *m,int n,t_flags *f, struct ft_var *v);
-void printTree(node *tree, int *m,int n,t_flags *f,struct ft_var *var);
+void printreversetree(node *tree, int *m,int n, struct ft_var *v);
+void printtree(node *tree, int *m,int n,struct ft_var *var);
 d_list	*lst_add(const char *str ,d_list **lst,struct stat *st,struct ft_var *var);
 int cmpar(void *f1, void *f2, t_flags *f);
 node	*addnode(node **tree,char *str ,d_list *l,struct ft_var *var);
+void	display_link(char *data);
 
 typedef struct	s_elem
 {

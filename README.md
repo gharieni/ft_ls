@@ -1,4 +1,14 @@
 <<<<<<< HEAD
+
+ERREUR A CORRIGER 
+
+
+1/   -lR  /DEV/FD
+2/   -lRr ! -lrR
+3/   -l src/main   affichage main ?
+
+
+
 - Tout fonctionne et rien ne fonctionne 
 
 - Ajout et affichage  arbre trier par size 

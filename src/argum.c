@@ -6,14 +6,13 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:33:00 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/12 18:37:37 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/22 00:14:04 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"ft_ls.h"
+#include "ft_ls.h"
 
-
-void ft_error_flags(char flag)
+void	ft_error_flags(char flag)
 {
 	ft_putstr("ls");
 	ft_putstr(": ");
@@ -26,7 +25,7 @@ void ft_error_flags(char flag)
 	exit(succes);
 }
 
-void    ft_arg_check(char c, t_flags *flags)
+void	ft_arg_check(char c, t_flags *flags)
 {
 	if (c == 'l' || c == 'R' || c == 'a' || c == 'r' || c == 't')
 		flags->flag_error = 0;
@@ -37,16 +36,16 @@ void    ft_arg_check(char c, t_flags *flags)
 	}
 }
 
-int   ft_arg_parse_flags(t_flags *flags, char **argv)
+int		ft_arg_parse_flags(t_flags *flags, char **argv)
 {
-	int        i;
-	int        j;
+	int	i;
+	int	j;
 
-	i = 1;
-	while (argv[i] && (argv[i][0] == '-'))
+	i = 0;
+	while (argv[++i] && (argv[i][0] == '-'))
 	{
-		j = 1;
-		while (argv[i][j])
+		j = 0;
+		while (argv[i][++j])
 		{
 			ft_arg_check(argv[i][j], flags);
 			if (argv[i][j] == 'l')
@@ -59,12 +58,9 @@ int   ft_arg_parse_flags(t_flags *flags, char **argv)
 				flags->flag_r = 1;
 			else
 				flags->flag_r = 0;
-			
 			if (argv[i][j] == 't')
 				flags->flag_t = 1;
-			j++;
 		}
-		i++;
 	}
 	return (i);
 }
