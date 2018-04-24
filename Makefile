@@ -6,7 +6,7 @@
 #    By: gmelek <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 16:54:30 by gmelek            #+#    #+#              #
-#    Updated: 2017/11/30 17:09:14 by gmelek           ###   ########.fr        #
+#    Updated: 2018/04/23 20:00:34 by gmelek           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = ft_ls
@@ -16,7 +16,7 @@ LDFLAGS = -Llibft
 LDLIBS = -lft
 CC = clang
 INC = includes
-CFLAGS = -Wall -Werror
+CFLAGS = -Wall -Werror -Wextra -g
 SRC_NAME = main.c\
 	ls_l.c\
 	argum.c\

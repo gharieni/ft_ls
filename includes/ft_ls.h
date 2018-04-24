@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:16:00 by gmelek            #+#    #+#             */
-/*   Updated: 2018/04/22 00:35:51 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/24 03:49:50 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@
 
 #define error 0
 #define succes 1
+#define RED   "\x1B[31m"
+#define GRN   "\x1B[32m"
+#define YEL   "\x1B[33m"
+#define BLU   "\x1B[34m"
+#define MAG   "\x1B[35m"
+#define CYN   "\x1B[36m"
+#define WHT   "\x1B[37m"
+#define BGRN  "\x1B[42m"
+#define RESET "\x1B[0m"
+
 
 typedef struct ddir
 {
@@ -71,6 +81,7 @@ typedef struct tnode
 	struct tnode		*right;
 }					node;
 
+char	get_file_acl(char *path, char *name);
 
 node* parcour(DIR *pdir, struct ft_var *v, char *buff,char *s);
 
@@ -80,8 +91,8 @@ void cleartree(node **tree);
 char*	file_str(char *s1, const char *s2);
 int ft_arg_parse_flags(t_flags *flags,char **av);
 int max(d_list *l, int *blk,int a,int *n);
-void print(d_list *dir, int *m,int n,t_flags f);
-
+void print(d_list *dir, int *m,int n,struct ft_var *v);
+void color(d_list *dir);
 void recursive (struct ft_var v, t_flags flag);
 int error_msg(int er, DIR *pdir, char* av);
 void printreversetree(node *tree, int *m,int n, struct ft_var *v);
@@ -107,5 +118,5 @@ typedef struct	s_elem
 }						t_elem;
 
 
-int lsl(int ac ,char *av,t_flags f,r_dir *lst);
+int lsl(int ac ,char *av,t_flags f);
 #endif

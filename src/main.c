@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 13:46:05 by gmelek            #+#    #+#             */
-/*   Updated: 2018/04/22 22:21:59 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/24 02:11:19 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int			main(int argc, char *argv[])
 			k = 42;
 		if (pdir && t == 0)
 			ft_putchar('\n');
-		lsl(-43 + k + t, argv[i++], *flag, NULL);
+		lsl(-43 + k + t, argv[i++], *flag);
 		if (((t = 0) || 1) && pdir)
 			(void)closedir(pdir);
 	}

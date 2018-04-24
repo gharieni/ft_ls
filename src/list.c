@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 00:20:16 by gmelek            #+#    #+#             */
-/*   Updated: 2018/04/22 19:08:19 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/24 02:07:49 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,31 @@ void	max_suite2(int *d, int *n)
 		*n = d[3];
 }
 
-void	max_suite(d_list *l, d_list *d_dir, int *d)
+void	max_suite(d_list *l, d_list *d_dir, int *d, char *c)
 {
 	struct group	*grp;
 	struct passwd	*pwd;
-	char			*c;
 	int				major;
 	int				minor;
 
 	c = ft_itoa(l->content->st_nlink);
-	if (((ft_strlen(c) > d[3]) && (d[3] = ft_strlen(c))) || 1)
+	if (((ft_strlen(c) > (size_t)d[3]) && (d[3] = ft_strlen(c))) || 1)
 		major = (int)major(d_dir->content->st_rdev);
 	minor = (int)minor(d_dir->content->st_rdev);
 	if ((grp = getgrgid(d_dir->content->st_gid)) != NULL)
-		if (ft_strlen(grp->gr_name) > d[4])
+		if (ft_strlen(grp->gr_name) > (size_t)d[4])
 			d[4] = ft_strlen(grp->gr_name);
 	if ((pwd = getpwuid(d_dir->content->st_uid)) != NULL)
-		if (ft_strlen(pwd->pw_name) > d[5])
+		if (ft_strlen(pwd->pw_name) > (size_t)d[5])
 			d[5] = ft_strlen(pwd->pw_name);
 	if (S_ISCHR(d_dir->content->st_mode) || S_ISBLK(d_dir->content->st_mode))
 	{
-		if (d[1] < (ft_strlen(ft_itoa(major))))
+		if ((size_t)d[1] < (ft_strlen(ft_itoa(major))))
 			d[1] = (ft_strlen(ft_itoa(major)));
-		if (d[2] < (ft_strlen(ft_itoa(minor))))
+		if ((size_t)d[2] < (ft_strlen(ft_itoa(minor))))
 			d[2] = (ft_strlen(ft_itoa(minor)));
-		if (d[0] < (ft_strlen(ft_itoa(major)) + (ft_strlen(ft_itoa(minor)))))
+		if ((size_t)d[0] < (ft_strlen(ft_itoa(major)) +
+					(ft_strlen(ft_itoa(minor)))))
 			d[0] = (ft_strlen(ft_itoa(major)) + (ft_strlen(ft_itoa(minor))));
 	}
 }
@@ -76,9 +76,9 @@ int		max(d_list *d_dir, int *blk, int a, int *n)
 		if ((a && (l->nom[0] == '.')) || (l->nom[0] != '.'))
 		{
 			c = ft_itoa(l->content->st_size);
-			if ((ft_strlen(c) > m && (m = ft_strlen(c))) || 1)
+			if ((ft_strlen(c) > (size_t)m && (m = ft_strlen(c))) || 1)
 				free(c);
-			max_suite(l, d_dir, d);
+			max_suite(l, d_dir, d, NULL);
 		}
 		l = l->next;
 	}

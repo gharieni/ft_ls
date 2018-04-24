@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/04/22 22:22:52 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/24 03:11:11 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,6 @@ void	cleartree(node **tree)
 		cleartree(&tmptree->left);
 	if (tmptree->right)
 		cleartree(&tmptree->right);
-//free(tmptree->val->content);
-//free(tmptree->val->nom);
-//free(tmptree->val);
-	free(tmptree);
-	tmptree = NULL;
 }
 
 void	printtree(node *tree, int *m, int n, struct ft_var *v)
@@ -90,7 +85,7 @@ void	printtree(node *tree, int *m, int n, struct ft_var *v)
 	if ((v->f.flag_a && (tree->val->nom[0] == '.'))
 			|| (tree->val->nom[0] != '.'))
 	{
-		print(tree->val, m, n, v->f);
+		print(tree->val, m, n, v);
 		if ((v->f.flag_l && S_ISLNK(tree->val->content->st_mode))
 			&& ((str = file_str(v->path, tree->val->nom)) || 1))
 			display_link(str);
@@ -119,7 +114,7 @@ void	printreversetree(node *tree, int *m, int n, struct ft_var *v)
 	if ((v->f.flag_a && (tree->val->nom[0] == '.'))
 			|| (tree->val->nom[0] != '.'))
 	{
-		print(tree->val, m, n, v->f);
+		print(tree->val, m, n, v);
 		if ((S_ISLNK(tree->val->content->st_mode))
 			&& ((str = file_str(v->path, tree->val->nom)) || 1))
 			display_link(str);

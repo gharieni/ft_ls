@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/04/22 21:52:24 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/24 03:54:01 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		lsl_suite(int ac, struct ft_var v, node *tree, char *av)
 	return (0);
 }
 
-int		lsl(int ac, char *av, t_flags flag, r_dir *lst)
+int		lsl(int ac, char *av, t_flags flag)
 {
 	struct ft_var	v;
 	DIR				*pdir;
@@ -99,7 +99,6 @@ int		lsl(int ac, char *av, t_flags flag, r_dir *lst)
 	char			*s;
 
 	v.f = flag;
-//	v.blck = 0;
 	s = NULL;
 	buff = ft_strdup(av);
 	while (!(pdir = opendir(buff)) && (errno == ENOTDIR))
@@ -115,10 +114,12 @@ int		lsl(int ac, char *av, t_flags flag, r_dir *lst)
 		printreversetree(tree, v.m, v.m[1], &v);
 	else if (errno != ENOTDIR)
 		printtree(tree, v.m, v.m[1], &v);
-	if ((errno != ENOTDIR) && ((error_msg(errno, pdir, av)) || 1))
+	if (((error_msg(errno, pdir, av)) || 1) && (errno != ENOTDIR))
 		recursive(v, flag);
-//free(buff);
-//	buff = NULL;
-//	clearTree(&tree);
+/*
+** cleartree(&tree);
+** free(buff);
+** buff = NULL;
+*/
 	return (0);
 }

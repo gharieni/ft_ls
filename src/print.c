@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 21:47:24 by gmelek            #+#    #+#             */
-/*   Updated: 2018/04/22 18:07:41 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/24 03:55:40 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	print_next(d_list *d_dir, int i)
 	if (i == 1)
 	{
 		if (S_ISFIFO(d_dir->content->st_mode))
-			;
+			k = 'p';
 		else if (S_ISSOCK(d_dir->content->st_mode))
 			k = 's';
 		else if (S_ISBLK(d_dir->content->st_mode))
@@ -70,7 +70,7 @@ char	print_next(d_list *d_dir, int i)
 	return (k);
 }
 
-void	print_suite(d_list *d_d, int n, int k)
+void	print_suite(d_list *d_d, int n, int k, char *path)
 {
 	ft_putchar((S_ISCHR(d_d->content->st_mode)) ? 'c' : print_next(d_d, 1));
 	ft_putchar((d_d->content->st_mode & S_IRUSR) ? 'r' : '-');
@@ -82,6 +82,7 @@ void	print_suite(d_list *d_d, int n, int k)
 	ft_putchar((d_d->content->st_mode & S_IROTH) ? 'r' : '-');
 	ft_putchar((d_d->content->st_mode & S_IWOTH) ? 'w' : '-');
 	ft_putchar((d_d->content->st_mode & S_ISVTX) ? 't' : print_next(d_d, 3));
+	ft_putchar(get_file_acl(path, d_d->nom));
 	ft_putchar(' ');
 	k = ft_strlen(ft_itoa(d_d->content->st_nlink));
 	while (n-- - k)
@@ -113,17 +114,17 @@ void	print_user(d_list *d_dir, int n, int k, int *m)
 	ft_putchar(' ');
 }
 
-void	print(d_list *d_dir, int *m, int n, t_flags flags)
+void	print(d_list *d_dir, int *m, int n, struct ft_var *v)
 {
 	time_t				*time_tmp;
 	time_t				ttime;
 	char				mtime[25];
 	char				*dat;
 
-	if (((flags.flag_a && (d_dir->nom[0] == '.'))
-			|| (d_dir->nom[0] != '.')) && flags.flag_l == 1)
+	if (((v->f.flag_a && (d_dir->nom[0] == '.'))
+			|| (d_dir->nom[0] != '.')) && v->f.flag_l == 1)
 	{
-		print_suite(d_dir, n, 0);
+		print_suite(d_dir, n, 0, v->path);
 		print_user(d_dir, n, 0, m);
 		time_tmp = malloc(sizeof(time_t));
 		ttime = time(NULL);
@@ -138,5 +139,5 @@ void	print(d_list *d_dir, int *m, int n, t_flags flags)
 		free(dat);
 		ft_putchar(' ');
 	}
-	ft_putstr(d_dir->nom);
+	color(d_dir);
 }

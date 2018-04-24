@@ -6,11 +6,27 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 15:51:11 by gmelek            #+#    #+#             */
-/*   Updated: 2018/04/22 21:43:06 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/24 03:57:14 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void	color(d_list *d_dir)
+{
+	if (S_ISDIR(d_dir->content->st_mode))
+		ft_putstr(CYN);
+	else if (S_ISLNK(d_dir->content->st_mode))
+		ft_putstr(MAG);
+	else if (S_ISSOCK(d_dir->content->st_mode))
+		ft_putstr(GRN);
+	else if (S_IXUSR & d_dir->content->st_mode)
+		ft_putstr(RED);
+	else if (S_ISFIFO(d_dir->content->st_mode))
+		ft_putstr(YEL);
+	ft_putstr(d_dir->nom);
+	ft_putstr(RESET);
+}
 
 void	display_link(char *data)
 {
@@ -32,7 +48,7 @@ node	*parcour(DIR *pdir, struct ft_var *v, char *buf, char *s)
 	int				i;
 
 	t = NULL;
-//	v->blck = 0;
+	v->blck = 0;
 	i = -1;
 	while (++i < 7 && ((v->m[i] = 0) || 1))
 		tmp = NULL;
@@ -49,11 +65,6 @@ node	*parcour(DIR *pdir, struct ft_var *v, char *buf, char *s)
 				else
 					t = addnode(&t, dir->d_name, tmp, v);
 			}
-// free(str); >>>> inside if
-// str = NULL; >>>> inside if
-//	free (s); >>>> inside if
-//	if (!S_ISLNK(v.st.st_mode) )>>>>> inside while
-////		free(v.path);>>>>>>>inside while
 	return (t);
 }
 
@@ -86,7 +97,7 @@ void	recursive(struct ft_var v, t_flags flag)
 			if (tt[0] != '.')
 			{
 				v.lst->dir = ft_strjoin(v.lst->dir, tt);
-				lsl(-43, v.lst->dir, flag, NULL);
+				lsl(-43, v.lst->dir, flag);
 				t = 0;
 			}
 			free(tt);

@@ -6,11 +6,30 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:33:00 by gmelek            #+#    #+#             */
-/*   Updated: 2018/04/22 00:14:04 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/24 03:49:35 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <sys/acl.h>
+#include <sys/xattr.h>
+
+char	get_file_acl(char *path, char *name)
+{
+	acl_t	tmp;
+	char	buf[101];
+	char	*str;
+
+	str = file_str(path, name);
+	if (listxattr(str, buf, sizeof(buf), XATTR_NOFOLLOW) > 0)
+		return ('@');
+	if ((tmp = acl_get_link_np(str, ACL_TYPE_EXTENDED)))
+	{
+		acl_free(tmp);
+		return ('+');
+	}
+	return (' ');
+}
 
 void	ft_error_flags(char flag)
 {
@@ -36,11 +55,21 @@ void	ft_arg_check(char c, t_flags *flags)
 	}
 }
 
+void	init_flags(t_flags *flags)
+{
+	flags->flag_l = 0;
+	flags->flag_r = 0;
+	flags->flag_R = 0;
+	flags->flag_t = 0;
+	flags->flag_a = 0;
+}
+
 int		ft_arg_parse_flags(t_flags *flags, char **argv)
 {
 	int	i;
 	int	j;
 
+	init_flags(flags);
 	i = 0;
 	while (argv[++i] && (argv[i][0] == '-'))
 	{
@@ -56,8 +85,6 @@ int		ft_arg_parse_flags(t_flags *flags, char **argv)
 				flags->flag_a = 1;
 			if (argv[i][j] == 'r')
 				flags->flag_r = 1;
-			else
-				flags->flag_r = 0;
 			if (argv[i][j] == 't')
 				flags->flag_t = 1;
 		}
