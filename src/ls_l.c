@@ -6,7 +6,7 @@
 /*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2018/04/24 03:54:01 by gmelek           ###   ########.fr       */
+/*   Updated: 2018/04/25 14:43:42 by gmelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		lsl(int ac, char *av, t_flags flag)
 	while (!(pdir = opendir(buff)) && (errno == ENOTDIR))
 		s = ft_basename(&buff);
 	tree = parcour(pdir, &v, buff, s);
-	if ((lsl_suite(ac, v, tree, av)) && (!s && pdir && (flag.flag_l == 1 || 1)))
+	if ((lsl_suite(ac, v, tree, av)) && (!s && pdir && flag.flag_l))
 	{
 		ft_putstr("total ");
 		ft_putnbr(v.blck);
@@ -116,10 +116,5 @@ int		lsl(int ac, char *av, t_flags flag)
 		printtree(tree, v.m, v.m[1], &v);
 	if (((error_msg(errno, pdir, av)) || 1) && (errno != ENOTDIR))
 		recursive(v, flag);
-/*
-** cleartree(&tree);
-** free(buff);
-** buff = NULL;
-*/
 	return (0);
 }
