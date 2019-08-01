@@ -14,3 +14,7 @@ Ft_ls is a 42 Network school Project
 $> make
 $> ./ft_ls {optional argument}
 ```
+##
+More information can be found on the [PDF].
+
+[PDF]: https://github.com/gharieni/ft_ls/ft_ls.en.pdf
