@@ -17,4 +17,4 @@ $> ./ft_ls {optional argument}
 ##
 More information can be found on the [PDF].
 
-[PDF]: https://github.com/gharieni/ft_ls/ft_ls.en.pdf
+[PDF]: https://github.com/gharieni/ft_ls/blob/master/ft_ls.en.pdf
