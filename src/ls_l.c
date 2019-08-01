@@ -1,28 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_inspect_file.c                                  :+:      :+:    :+:   */
+/*   ls_l.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ghamelek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/16 13:37:21 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/21 12:39:32 by gmelek           ###   ########.fr       */
+/*   Created: 2018/12/01 21:31:11 by ghamelek          #+#    #+#             */
+/*   Updated: 2019/01/16 00:14:20 by ghamelek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_ls.h"
-#include <errno.h>
-#include <string.h>
 
-char*	ft_basename(char** str)
+#include "../includes/ft_ls.h"
+
+void	addlist(char *str, t_dir **lst)
 {
-	char* buff;
-	char* old;
-	char* s;
+	t_dir	*tmp;
+	t_dir	*ls;
+
+	tmp = *lst;
+	ls = malloc(sizeof(t_dir));
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	ls->dir = ft_strdup(str);
+	ls->next = NULL;
+	if (!*lst)
+		*lst = ls;
+	else
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = ls;
+	}
+}
+
+char	*ft_basename(char **str)
+{
+	char	*buff;
+	char	*old;
+	char	*s;
 
 	buff = *str;
 	s = NULL;
 	old = NULL;
-	while(strchr(buff,'/') && (buff = strchr(buff,'/')) )
+	while (ft_strchr(buff, '/') && (buff = ft_strchr(buff, '/')))
 		old = ++buff;
 	if (old)
 	{
@@ -33,72 +53,71 @@ char*	ft_basename(char** str)
 	else
 	{
 		s = ft_strdup(*str);
-		*str = ".";
-		ft_strclr(*str + 1);
+		ft_strdel(str);
+		*str = ft_strnew(2);
+		ft_strcpy(*str, ".");
 	}
-	return(s);
+	return (s);
 }
 
-
-char*	file_str(char *s1, const char *s2)
+char	*file_str(const char *str, const char *s2, int j)
 {
-
-	int i;
+	int		i;
+	char	*tmp;
+	char	s1[j + 1];
 
 	i = 0;
-	while (s1[i++]);
-	if (!ft_strncmp(&s1[i - 2],".",1) && !ft_strncmp(&s1[i - 3],"/",1))
+	ft_strcpy(s1, str);
+	while (s1[i])
+		i++;
+	if (!ft_strncmp(&s1[i - 2], ".", 1) && !ft_strncmp(&s1[i - 3], "/", 1))
 		s1[i - 2] = '\0';
-	else if (ft_strncmp(&s1[i - 2],"/",1))
-		s1 = ft_strjoin(s1,"/");
-	return(ft_strjoin(s1,s2));
+	else if (ft_strncmp(&s1[i - 2], "/", 1))
+		ft_strcat(s1, "/");
+	tmp = ft_strjoin(s1, s2);
+	return (tmp);
 }
 
-int			lsl(int ac ,char *av,t_flags flag)
-
+int		lsl_su(int ac, struct s_var v, t_node *tree, char *av)
 {
-	int m;
-	struct	stat	st;
-	struct	dirent	*dir;
+	if ((errno != ENOTDIR) && (ac <= -42))
+		ft_putchar('\n');
+	if ((errno != ENOTDIR) && (ac < -31 && ac != -32))
+	{
+		ft_putstr(av);
+		ft_putendl(":");
+	}
+	if ((errno != ENOTDIR) && ((v.f.flag_a && tree &&
+		(tree->val->nom[0] == '.')) || (tree && (tree->val->nom[0] != '.'))))
+		return (1);
+	return (0);
+}
+
+void	lsl(int ac, char *av, t_flags flag)
+{
+	struct s_var	v;
 	DIR				*pdir;
 	char			*buff;
-	char			*str;
+	t_node			*tree;
 	char			*s;
-	int				i = 2;
-	d_list			*l_dir;
-	d_list			*tmp;
-	node *tree;
-	//t_flags *flags;
 
-	//flags = (t_flags*)malloc(sizeof(t_flags));
-	tree = NULL;
-	l_dir = tmp;
-	buff = ft_strnew(sizeof(av[2]));
-	ft_strcpy(buff,av);
-	while (!(pdir = opendir(buff)) && i--)
+	v.f = flag;
+	doule_null(&buff, &s) ? (buff = ft_strdup(av)) : 0;
+	if ((lstat(av, &v.st) || 1) && (S_ISLNK(v.st.st_mode)) && flag.flag_l)
+		ac += 42 + 0 * (int)(s = ft_basename(&buff));
+	while (!(pdir = opendir(buff)) && (errno == ENOTDIR))
 		s = ft_basename(&buff);
-	i = 0;
-	//ft_arg_parse_flags(flags,av);
-	while ((dir = readdir(pdir)) != NULL)
-	{
-		if(!s || (!ft_strcmp( s, dir->d_name)))
-		{
-			str = file_str(buff,dir->d_name);
-			stat(str,&st);
-			//tmp = lst_add(dir->d_name,&tmp,&st,&m,&i);
-			tree = addnode(&tree,dir->d_name,tmp,&st,&m,&i);
-		}
-	}
-l_dir = tmp;
-		ft_putstr("total ");
-		ft_putnbr(i);
-		ft_putstr("\n");
-//	while(l_dir)
-//	{
-		//print(l_dir,m);
-		printTree(tree,m,&flag);
-//		l_dir = l_dir->next;
-		printf("\n");
-//	}
-	return (0);
+	if (!s && ac < 4000 && !flag.flag_rec && pdir != NULL)
+		ft_putchar('\n');
+	((tree = parcour(pdir, &v, buff, s)) && ac > 4000) ? (ac -= 5000) : 0;
+	doule_free(&buff, &s);
+	if ((lsl_su(ac + !flag.flag_l, v, tree, av)) && (pdir && flag.flag_l))
+		(ac < -1) ? print_total(v.blck) : 0;
+	if ((errno != ENOTDIR) && ((1 + (v.lst = NULL)) && flag.flag_r == 1))
+		printreversetree(tree, v.m, v.m[1], &v);
+	else if (errno != ENOTDIR)
+		printtree(tree, v.m, v.m[1], &v);
+	if (((error_msg(errno, pdir, av)) || 1) && (errno != ENOTDIR))
+		recursive(v, flag);
+	cleartree(&tree) ? ft_strdel(&v.path) : 1;
 }

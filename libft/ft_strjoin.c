@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ghamelek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/15 16:50:33 by gmelek            #+#    #+#             */
-/*   Updated: 2016/11/15 16:51:19 by gmelek           ###   ########.fr       */
+/*   Created: 2018/10/01 19:45:55 by ghamelek          #+#    #+#             */
+/*   Updated: 2018/10/01 19:45:56 by ghamelek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char *new;
 	char *newit;
 
+	new = NULL;
 	if (s1 == NULL && s2 == NULL)
 		return (ft_strnew(0));
 	else if (s1 == NULL)

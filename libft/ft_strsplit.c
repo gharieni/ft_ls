@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ghamelek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/15 15:55:31 by gmelek            #+#    #+#             */
-/*   Updated: 2016/11/17 10:10:51 by gmelek           ###   ########.fr       */
+/*   Created: 2018/10/01 19:47:07 by ghamelek          #+#    #+#             */
+/*   Updated: 2018/10/01 19:47:09 by ghamelek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char					**ft_strsplit(char const *str, char c)
 
 	if (str == NULL)
 		return (NULL);
-	ret = (char**)malloc(sizeof(char*) * (ft_str_count_splits(str, c) + 1));
+	ret = malloc(sizeof(char*) * (ft_str_count_splits(str, c) + 1));
 	if (ret == NULL)
 		return (NULL);
 	i = 0;

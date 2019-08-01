@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ghamelek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/01 19:46:17 by ghamelek          #+#    #+#             */
-/*   Updated: 2018/10/01 19:46:19 by ghamelek         ###   ########.fr       */
+/*   Created: 2018/10/01 21:14:42 by ghamelek          #+#    #+#             */
+/*   Updated: 2018/10/01 21:21:12 by ghamelek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+int		ft_intlen(unsigned int n)
 {
-	char			*str;
-	unsigned int	i;
+	int		size;
 
-	if (!s || !f)
-		return (NULL);
-	str = (char*)malloc(sizeof(*str) * (ft_strlen(s) + 1));
-	if (str)
+	size = 0;
+	if (n == 0)
+		return (1);
+	while (n != 0)
 	{
-		i = 0;
-		while (s[i])
-		{
-			str[i] = f(i, s[i]);
-			i++;
-		}
-		str[i] = '\0';
+		n = n / 10;
+		size++;
 	}
-	return (str);
+	return (size);
 }

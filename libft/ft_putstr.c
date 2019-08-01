@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ghamelek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/15 15:21:10 by gmelek            #+#    #+#             */
-/*   Updated: 2016/11/15 15:21:43 by gmelek           ###   ########.fr       */
+/*   Created: 2018/10/01 19:42:59 by ghamelek          #+#    #+#             */
+/*   Updated: 2018/10/01 22:04:11 by ghamelek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	ft_putstr(char const *str)
 {
-	ft_putstr_fd(str, 1);
+	if (str)
+		ft_putstr_fd(str, 1);
 }

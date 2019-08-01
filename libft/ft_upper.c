@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_upper.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ghamelek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/01 19:46:17 by ghamelek          #+#    #+#             */
-/*   Updated: 2018/10/01 19:46:19 by ghamelek         ###   ########.fr       */
+/*   Created: 2018/10/01 21:11:29 by ghamelek          #+#    #+#             */
+/*   Updated: 2018/10/01 21:11:32 by ghamelek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void	ft_upper(char *s)
 {
-	char			*str;
-	unsigned int	i;
-
-	if (!s || !f)
-		return (NULL);
-	str = (char*)malloc(sizeof(*str) * (ft_strlen(s) + 1));
-	if (str)
+	while (*s)
 	{
-		i = 0;
-		while (s[i])
-		{
-			str[i] = f(i, s[i]);
-			i++;
-		}
-		str[i] = '\0';
+		if (*s >= 'a' && *s <= 'z')
+			*s = *s - 32;
+		s++;
 	}
-	return (str);
 }

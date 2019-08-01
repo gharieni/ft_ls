@@ -3,17 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   argum.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ghamelek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/12 11:33:00 by gmelek            #+#    #+#             */
-/*   Updated: 2017/12/19 15:36:21 by gmelek           ###   ########.fr       */
+/*   Created: 2018/12/01 21:30:49 by ghamelek          #+#    #+#             */
+/*   Updated: 2018/12/01 21:30:51 by ghamelek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"ft_ls.h"
+#include "ft_ls.h"
+#include <sys/acl.h>
+#include <sys/xattr.h>
 
+char	get_file_acl(char *path, char *name)
+{
+	acl_t	tmp;
+	char	buf[101];
+	char	*str;
 
-void ft_error_flags(char flag)
+	str = file_str(path, name, ft_strlen(path));
+	if (listxattr(str, buf, sizeof(buf), XATTR_NOFOLLOW) > 0)
+	{
+		ft_strdel(&str);
+		return ('@');
+	}
+	if ((tmp = acl_get_link_np(str, ACL_TYPE_EXTENDED)))
+	{
+		ft_strdel(&str);
+		acl_free(tmp);
+		return ('+');
+	}
+	ft_strdel(&str);
+	return (' ');
+}
+
+void	ft_error_flags(char flag)
 {
 	ft_putstr("ls");
 	ft_putstr(": ");
@@ -23,10 +46,10 @@ void ft_error_flags(char flag)
 	ft_putstr("usage: ");
 	ft_putstr("ls");
 	ft_putendl(" [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]");
-	exit(succes);
+	exit(1);
 }
 
-void    ft_arg_check(char c, t_flags *flags)
+void	ft_arg_check(char c, t_flags *flags)
 {
 	if (c == 'l' || c == 'R' || c == 'a' || c == 'r' || c == 't')
 		flags->flag_error = 0;
@@ -37,31 +60,39 @@ void    ft_arg_check(char c, t_flags *flags)
 	}
 }
 
-int   ft_arg_parse_flags(t_flags *flags, char **argv)
+void	init_flags(t_flags *flags)
 {
-	int        i;
-	int        j;
+	flags->flag_l = 0;
+	flags->flag_r = 0;
+	flags->flag_rec = 0;
+	flags->flag_t = 0;
+	flags->flag_a = 0;
+}
 
-	i = 1;
-	while (argv[i] && (argv[i][0] == '-'))
+int		ft_arg_parse_flags(t_flags *flags, char **argv)
+{
+	int	i;
+	int	j;
+
+	init_flags(flags);
+	i = 0;
+	while (argv[++i] && (argv[i][0] == '-'))
 	{
-		j = 1;
-		while (argv[i][j])
+		j = 0;
+		while (argv[i][++j])
 		{
 			ft_arg_check(argv[i][j], flags);
 			if (argv[i][j] == 'l')
 				flags->flag_l = 1;
 			if (argv[i][j] == 'R')
-				flags->flag_R = 1;
+				flags->flag_rec = 1;
 			if (argv[i][j] == 'a')
 				flags->flag_a = 1;
 			if (argv[i][j] == 'r')
 				flags->flag_r = 1;
 			if (argv[i][j] == 't')
 				flags->flag_t = 1;
-			j++;
 		}
-		i++;
 	}
 	return (i);
 }

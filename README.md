@@ -1,11 +1,16 @@
-<<<<<<< HEAD
-- Tout fonctionne et rien ne fonctionne 
+# Ft_ls
 
-- Ajout et affichage  arbre trier par size 
+Ft_ls is a 42 Network school Project
 
--Ajout total (block ... )
+* availebal functions:
+-l, -R, -a, -r, -t.
 
->>> a nettoyer et faire un menu
-=======
-![screen shot 2017-12-10 at 4 20 41 pm](https://user-images.githubusercontent.com/20647901/33806275-1ee24eb4-ddc6-11e7-8bc3-dc7bf9253bbb.png)
->>>>>>> 0c31cf6aa0152901b98696a6ba4d42d1064372f4
+## Sources
+* https://www.unix.com/man-page/osx/1/LS
+
+## Installation
+
+```
+$> make
+$> ./ft_ls {optional argument}
+```

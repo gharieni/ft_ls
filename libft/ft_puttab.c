@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_puttab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ghamelek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/01 19:46:17 by ghamelek          #+#    #+#             */
-/*   Updated: 2018/10/01 19:46:19 by ghamelek         ###   ########.fr       */
+/*   Created: 2018/10/01 21:17:26 by ghamelek          #+#    #+#             */
+/*   Updated: 2018/10/01 21:17:43 by ghamelek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void	ft_puttab(char **tab)
 {
-	char			*str;
-	unsigned int	i;
+	int		i;
 
-	if (!s || !f)
-		return (NULL);
-	str = (char*)malloc(sizeof(*str) * (ft_strlen(s) + 1));
-	if (str)
-	{
-		i = 0;
-		while (s[i])
+	i = 0;
+	if (tab)
+		while (tab[i])
 		{
-			str[i] = f(i, s[i]);
+			ft_putendl(tab[i]);
 			i++;
 		}
-		str[i] = '\0';
-	}
-	return (str);
 }

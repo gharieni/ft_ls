@@ -3,114 +3,140 @@
 /*                                                        :::      ::::::::   */
 /*   trees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelek <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ghamelek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/11 16:38:53 by gmelek            #+#    #+#             */
-/*   Updated: 2018/01/01 18:26:42 by gmelek           ###   ########.fr       */
+/*   Created: 2018/12/01 21:31:34 by ghamelek          #+#    #+#             */
+/*   Updated: 2019/01/16 00:15:53 by ghamelek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int cmpar(void *f1 ,void *f2,int fact)
+int		cmpar(void *f1, void *f2, t_flags *f)
 {
-	if (fact == 1)
-	{	if((int)f1 > (int)f2)
+	int	k;
+
+	k = 0;
+	if (f->flag_t == 1)
+	{
+		if (((t_lists*)f1)->content->st_mtime >
+				((t_lists*)f2)->content->st_mtime)
+			return (0);
+		if (((t_lists*)f1)->content->st_mtime <
+				((t_lists*)f2)->content->st_mtime)
 			return (1);
 	}
-	else
-		if(ft_strcmp((char*)f1,(char*)f2) > 0)
-			return 1;
-	//else if(fact == 3)
-	//else
+	if (ft_strcmp(((t_lists*)f1)->nom, ((t_lists*)f2)->nom) > 0)
+		return (1);
+	else if (f->flag_l != 1)
+		if (ft_strcmp(((t_lists*)f1)->nom, ((t_lists*)f2)->nom) > 0)
+			return (1);
 	return (0);
 }
 
-
-node *addnode(node **tree ,char *str, d_list *l,struct stat *st,int *m,int *blk)
+t_node	*addnode(t_node **tree, char *str, t_lists *l, struct s_var *var)
 {
+	t_node	*tmp;
+	t_node	*elem;
+	t_node	*tmptree;
 
-	node *tmpNode;
-	node *tmpTree;
-
-	tmpTree = *tree;
-	node *elem = malloc(sizeof(node));
-	elem->val = lst_add(str,&l,st,m,blk);
+	tmptree = *tree;
+	elem = malloc(sizeof(t_node));
+	elem->val = lst_add(str, &l, &var->st, var);
 	elem->left = NULL;
 	elem->right = NULL;
-	/*
-	 *  size  1
-	 *  tri 2
-	 *  tri reverse 3
-	 *  time 4
-	 *  normal 42
-*/
-
-	if(tmpTree)
-		do
+	if (tmptree)
+		while (tmptree)
 		{
-			tmpNode = tmpTree;
-			if (cmpar((void*)l->nom ,(void*)tmpTree->val->nom,42))
-				//	if(l->content->st_size > tmpTree->val->content->st_size)
+			tmp = tmptree;
+			if (cmpar((void*)l, (void*)tmptree->val, &var->f))
 			{
-				tmpTree = tmpTree->right;
-				if(!tmpTree) 
-					tmpNode->right = elem;
+				if (((tmptree = tmptree->right) || 1) && !tmptree)
+					tmp->right = elem;
 			}
-			else
-			{
-				tmpTree = tmpTree->left;
-				if(!tmpTree) tmpNode->left = elem;
-			}
+			else if (((tmptree = tmptree->left) || 1) && !tmptree)
+				tmp->left = elem;
 		}
-		while(tmpTree);
-	else  *tree = elem;
-	return(*tree);
+	else
+		*tree = elem;
+	return (*tree);
 }
 
-
-void printTree(node *tree, int m,t_flags *f)
+int		cleartree(t_node **tree)
 {
+	t_node *tmptree;
 
-	if(!tree) return;
+	tmptree = *tree;
+	if (!tmptree)
+		return (1);
+	if (tmptree->left)
+		cleartree(&tmptree->left);
+	if (tmptree->right)
+		cleartree(&tmptree->right);
+	ft_strdel(&tmptree->val->nom);
+	free(tmptree->val->content);
+	tmptree->val->content = NULL;
+	free(tmptree->val);
+	tmptree->val = NULL;
+	free(tmptree);
+	tmptree = NULL;
+	return (1);
+}
 
-	if(tree->left)  printTree(tree->left,m,f);
+void	printtree(t_node *tree, int *m, int n, struct s_var *v)
+{
+	char	*str;
 
-	if((f->flag_a && (tree->val->nom[0] == '.'))
+	str = NULL;
+	if (!tree)
+		return ;
+	if (tree->left)
+		printtree(tree->left, m, n, v);
+	if ((v->f.flag_a && (tree->val->nom[0] == '.'))
 			|| (tree->val->nom[0] != '.'))
-		print(tree->val,m,*f);
-	//ft_putstr("\n");
-
-	if(tree->right) printTree(tree->right,m,f);
+	{
+		print(tree->val, m, n, v);
+		if ((v->f.flag_l && S_ISLNK(tree->val->content->st_mode)) && ((
+			str = file_str(v->path, tree->val->nom, ft_strlen(v->path))) || 1))
+			display_link(str);
+		ft_strdel(&str);
+		if (S_ISDIR(tree->val->content->st_mode))
+		{
+			str = file_str(v->path, tree->val->nom, ft_strlen(v->path));
+			addlist(str, &v->lst);
+			ft_strdel(&str);
+		}
+		ft_putchar('\n');
+	}
+	if (tree->right)
+		printtree(tree->right, m, n, v);
 }
 
-void printReverseTree(node *tree,int m)
+void	printreversetree(t_node *tree, int *m, int n, struct s_var *v)
 {
-	t_flags *f;
+	char	*str;
 
-	if(!tree) return;
-
-	if(tree->right) printReverseTree(tree->right,m);
-
-	print(tree->val,m,*f);
-	ft_putstr("\n");
-
-
-	if(tree->left)  printReverseTree(tree->left,m);
-}
-
-
-void clearTree(node **tree)
-{
-	node *tmpTree = *tree;
-
-	if(!tree) return;
-
-	if(tmpTree->left)  clearTree(&tmpTree->left);
-
-	if(tmpTree->right) clearTree(&tmpTree->right);
-
-	free(tmpTree);
-
-	*tree = NULL;
+	str = NULL;
+	if (!tree)
+		return ;
+	if (tree->right)
+		printreversetree(tree->right, m, n, v);
+	if ((v->f.flag_a && (tree->val->nom[0] == '.'))
+			|| (tree->val->nom[0] != '.'))
+	{
+		print(tree->val, m, n, v);
+		if ((v->f.flag_l && S_ISLNK(tree->val->content->st_mode)) && ((
+			str = file_str(v->path, tree->val->nom, ft_strlen(v->path))) || 1))
+			display_link(str);
+		ft_strdel(&str);
+		if (S_ISDIR(tree->val->content->st_mode))
+		{
+			str = file_str(v->path, tree->val->nom, ft_strlen(v->path));
+			addlist(str, &v->lst);
+			ft_strdel(&str);
+		}
+		ft_putchar('\n');
+	}
+	if (tree->left)
+		printreversetree(tree->left, m, n, v);
 }

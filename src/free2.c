@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   free2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ghamelek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/01 19:46:17 by ghamelek          #+#    #+#             */
-/*   Updated: 2018/10/01 19:46:19 by ghamelek         ###   ########.fr       */
+/*   Created: 2018/12/01 21:31:00 by ghamelek          #+#    #+#             */
+/*   Updated: 2018/12/01 22:19:55 by ghamelek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_ls.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void	doule_free(char **s1, char **s2)
 {
-	char			*str;
-	unsigned int	i;
+	ft_strdel(s1);
+	ft_strdel(s2);
+}
 
-	if (!s || !f)
-		return (NULL);
-	str = (char*)malloc(sizeof(*str) * (ft_strlen(s) + 1));
-	if (str)
-	{
-		i = 0;
-		while (s[i])
-		{
-			str[i] = f(i, s[i]);
-			i++;
-		}
-		str[i] = '\0';
-	}
-	return (str);
+int		doule_null(char **s1, char **s2)
+{
+	*s1 = NULL;
+	*s2 = NULL;
+	return (-1);
 }
