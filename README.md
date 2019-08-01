@@ -2,7 +2,7 @@
 
 Ft_ls is a 42 Network school Project
 
-* availebal functions:
+* Available flags:
 -l, -R, -a, -r, -t.
 
 ## Sources
